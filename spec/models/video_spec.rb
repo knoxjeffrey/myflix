@@ -26,10 +26,15 @@ describe Video do
     it "should return an array of multiple titles if there are matches" do
      monk = Video.create(title: "Monk", description: "Series about a detective")
      monk_detective = Video.create(title: "Monk Detective", description: "A Monk rip off")
-     expect(Video.search_by_title("Mo")).to eq([monk, monk_detective])
+     expect(Video.search_by_title("onk")).to eq([monk, monk_detective])
     end 
     
-    it "should return an array of matches independent of case"
+    it "should return an array of matches independent of case" do 
+      monk = Video.create(title: "Monk", description: "Series about a detective")
+      monk_detective = Video.create(title: "Monk Detective", description: "A Monk rip off")
+      expect(Video.search_by_title("mo")).to eq([monk, monk_detective])
+    end 
+    
   end
   
   describe :display_large_video_image do
