@@ -4,16 +4,17 @@ class Video < ActiveRecord::Base
   
   validates_presence_of :title, :description
   
-  # called on the class to search for a specific video title
-  # can find partial matches. Returns an array of matches or empty array if no matches
-  # example Video.search_by_title("monk")
-  # => ["monk"]
+  # Called on the class to search for a specific video title
+  # Can find partial matches and is case insensitive due to ILIKE. Returns an array of matches or empty array if no matches
+  # Order is by most recent created_at value first
+  # example Video.search_by_title("mon")
+  # => ["Monk", "Monkey"]
   def self.search_by_title(video_title)
-    where("title ILIKE ?", "%#{video_title}%")
+    video_title.present? ? where("title ILIKE ?", "%#{video_title}%").order('created_at DESC') : []
   end
   
-  #if large_cover_url has a non empty string and the file name exists then show the image
-  #else show a placeholder image
+  # If large_cover_url has a non empty string and the file name exists then show the image
+  # else show a placeholder image
   def display_large_video_image
     if self.large_cover_url.present?
       File.exists?(Rails.root.join("public" + self.large_cover_url)) ? self.large_cover_url : "http://dummyimage.com/665x375/000000/00a2ff"

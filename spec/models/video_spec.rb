@@ -20,19 +20,24 @@ describe Video do
     
     it "should return an array of one title that matches a partial search term" do
       monk = Video.create(title: "Monk", description: "Series about a detective")
-      expect(Video.search_by_title("Mo")).to eq([monk])
+      expect(Video.search_by_title("onk")).to eq([monk])
     end
     
-    it "should return an array of multiple titles if there are matches" do
-     monk = Video.create(title: "Monk", description: "Series about a detective")
-     monk_detective = Video.create(title: "Monk Detective", description: "A Monk rip off")
-     expect(Video.search_by_title("onk")).to eq([monk, monk_detective])
-    end 
+    it "should return an array of matches ordered by created_at" do
+      monk = Video.create(title: "Monk", description: "Series about a detective", created_at: 1.day.ago)
+      monk_detective = Video.create(title: "Monk Detective", description: "A Monk rip off")
+      expect(Video.search_by_title("mo")).to eq([monk_detective, monk])
+    end
     
     it "should return an array of matches independent of case" do 
       monk = Video.create(title: "Monk", description: "Series about a detective")
       monk_detective = Video.create(title: "Monk Detective", description: "A Monk rip off")
-      expect(Video.search_by_title("mo")).to eq([monk, monk_detective])
+      expect(Video.search_by_title("mo")).to eq([monk_detective, monk])
+    end 
+    
+    it "should return an empty array for an empty string search term" do
+      monk = Video.create(title: "Monk", description: "Series about a detective")
+      expect(Video.search_by_title("")).to eq([])
     end 
     
   end
