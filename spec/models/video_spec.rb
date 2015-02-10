@@ -7,6 +7,16 @@ describe Video do
   it { should validate_presence_of :title }
   it { should validate_presence_of :description }
   
+  describe :search_by_title do
+    it "should return an empty array if no title matches the search" do 
+      video = Video.new(title: "Monk", description: "Series about a detective")
+      expect(Video.search_by_title("South Park")).to eq([])
+    end
+    
+    it "should return an array of titles if there are matches"
+    it "should return an array of title that match a partial search term"
+  end
+  
   describe :display_large_video_image do
     
     it "should display a large video image if one is available" do
