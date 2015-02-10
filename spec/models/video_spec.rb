@@ -9,12 +9,23 @@ describe Video do
   
   describe :search_by_title do
     it "should return an empty array if no title matches the search" do 
-      video = Video.new(title: "Monk", description: "Series about a detective")
+      monk = Video.create(title: "Monk", description: "Series about a detective")
       expect(Video.search_by_title("South Park")).to eq([])
     end
     
-    it "should return an array of titles if there are matches"
-    it "should return an array of title that match a partial search term"
+    it "should return an array of one title if there is a match" do
+      monk = Video.create(title: "Monk", description: "Series about a detective")
+      expect(Video.search_by_title("Monk")).to eq([monk])
+    end
+    
+    it "should return an array of titles that match a partial search term" do
+      monk = Video.create(title: "Monk", description: "Series about a detective")
+      monk_detective = Video.create(title: "Monk Detective", description: "A Monk rip off")
+      expect(Video.search_by_title("Monk")).to eq([monk, monk_detective])
+    end
+    
+    it "should return an array of multiple titles if there are matches"
+    it "should return an array of matches independent of case"
   end
   
   describe :display_large_video_image do

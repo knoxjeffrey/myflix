@@ -9,7 +9,7 @@ class Video < ActiveRecord::Base
   # example Video.search_by_title("monk")
   # => ["monk"]
   def self.search_by_title(video_title)
-    []
+    self.where("title LIKE ?", "%#{video_title}%")
   end
   
   #if large_cover_url has a non empty string and the file name exists then show the image
