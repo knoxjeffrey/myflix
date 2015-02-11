@@ -10,16 +10,16 @@ class Video < ActiveRecord::Base
   # example Video.search_by_title("mon")
   # => ["Monk", "Monkey"]
   def self.search_by_title(video_title)
-    video_title.present? ? where("title ILIKE ?", "%#{video_title}%").order('created_at DESC') : []
+    video_title.present? ? where("title ILIKE ?", "%#{video_title}%").order(created_at: :desc) : []
   end
   
   # If large_cover_url has a non empty string and the file name exists then show the image
   # else show a placeholder image
   def display_large_video_image
     if self.large_cover_url.present?
-      File.exists?(Rails.root.join("public" + self.large_cover_url)) ? self.large_cover_url : "http://dummyimage.com/665x375/000000/00a2ff"
+      File.exists?(Rails.root.join("public" + self.large_cover_url)) ? self.large_cover_url : "http://dummyimage.com/665x375/000/fff.png&text=No+Preview+Available"
     else  
-      "http://dummyimage.com/665x375/000000/00a2ff"
+      "http://dummyimage.com/665x375/000/fff.png&text=No+Preview+Available"
     end
   end
   
