@@ -1,5 +1,7 @@
 Myflix::Application.routes.draw do
   
+  root to: 'pages#home'
+  
   get '/register', to: 'users#new'
   get '/sign_in', to: 'sessions#new'
   post '/sign_in', to: 'sessions#create'
@@ -14,7 +16,5 @@ Myflix::Application.routes.draw do
   end
   
   resources :categories, only: [:show]
-  
-  root to: 'pages#home'
-  
+
 end
