@@ -30,3 +30,23 @@ Video.create(title: "South Park",
             small_cover_url: "/tmp/south_park.jpg",
             category_id: 1)
             
+Video.create(title: "Family Guy",
+            description: "Sick, twisted and politically incorrect, the animated series features the adventures of the Griffin family.",
+            small_cover_url: "/tmp/family_guy.jpg",
+            category_id: 1)
+
+Video.create(title: "Futurama",
+            description: "Accidentally frozen, pizza-deliverer Fry wakes up 1,000 years in the future.",
+            small_cover_url: "/tmp/futurama.jpg",
+            category_id: 1)
+
+Video.create(title: "South Park",
+            description: "Watch Cartman, Kenny, Stan and Kyle in all their foul-mouthed adventures!",
+            small_cover_url: "/tmp/south_park.jpg",
+            category_id: 1)
+            
+Video.create(title: "Futurama",
+            description: "Accidentally frozen, pizza-deliverer Fry wakes up 1,000 years in the future.",
+            small_cover_url: "/tmp/futurama.jpg",
+            category_id: 1)
+            

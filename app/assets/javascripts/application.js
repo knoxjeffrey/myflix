@@ -13,3 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+
+// used for custom_form_for to stop email address being auto populated by browser
+$(window).load(function() {
+  $('.stop-autofill').val(' ');
+  setTimeout(function(){
+    $('.stop-autofill').val('');
+  }, 80);
+});
