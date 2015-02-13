@@ -4,6 +4,7 @@ class Category < ActiveRecord::Base
   
   validates_presence_of :name
   
+  # only return the most recent 6 videos for the category
   def recent_videos
     self.videos.first(6)
   end
