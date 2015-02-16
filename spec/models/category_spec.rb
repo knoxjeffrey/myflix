@@ -7,8 +7,8 @@ describe Category do
   it { should validate_presence_of :name }
   
   describe :recent_videos do
-  
-    category = Category.create(id: 1, name: "Entertainment")
+    
+    let(:category) {Category.create(id: 1, name: "Entertainment")}
     
     it "should return a list of videos from the category with the most recent first" do
       futurama = Video.create(title: "Futurama", description: "Accidentally frozen, pizza-deliverer", category_id: 1, created_at: 1.day.ago)
