@@ -1,39 +1,34 @@
 require 'spec_helper'
 
 describe VideosController do
-  
   before do
-    user = User.create(email_address: "knoxjeffrey@outlook.com", password: "password", full_name: "Jeff")
-    request.session[:user_id] = user.id
+    @fake_video = Fabricate(:video)
   end
   
-  describe "GET show" do
-    let(:monk) {Video.create(title: "Monk", description: "Adrian Monk is a brilliant San Francisco detective")}
-    
-    it "assigns @video" do
-      get :show, id: monk
-      expect(assigns(:video)).to eq(monk)
+  describe "GET show" do      
+    it "assigns @video for authentucated users" do
+      request.session[:user_id] = Fabricate(:user).id
+      get :show, id: @fake_video
+      expect(assigns(:video)).to eq(@fake_video)
     end
-    
-    it "renders the show template" do
-      get :show, id: monk
-      expect(response).to render_template :show
+
+    it "redirects user to root page if user not authenticated" do
+      get :show, id: @fake_video
+      expect(response).to redirect_to root_path
     end
   end
-  
+
   describe "POST search" do
-    let(:monk) {Video.create(title: "Monk", description: "Adrian Monk is a brilliant San Francisco detective")}
-    
-    it "assigns @search_results" do
-      post :search, video_title: "Monk"
-      expect(assigns(:search_results)).to eq([monk])
+    it "assigns @search_results for authenticated users" do
+      request.session[:user_id] = Fabricate(:user).id
+      post :search, video_title: @fake_video.title
+      expect(assigns(:search_results)).to eq([@fake_video])
     end
     
-    it "renders the search template" do
-      post :search, id: monk
-      expect(response).to render_template :search
+    it "redirects user to root page if user not authenticated" do
+      post :search, video_title: @fake_video.title
+      expect(response).to redirect_to root_path
     end
-    
   end
-  
 end
+  
