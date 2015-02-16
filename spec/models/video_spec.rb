@@ -40,7 +40,7 @@ describe Video do
   
   describe :display_large_video_image do
     
-    let(:video) { Video.new(title: "Monk", description: "Series about a detective", small_cover_url: "/tmp/monk.jpg") }
+    let(:video) { Fabricate(:video, small_cover_url: "/tmp/monk.jpg") }
     subject { video.display_large_video_image }
     
     it "should display a large video image if one is available" do
