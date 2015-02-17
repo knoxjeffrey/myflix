@@ -10,7 +10,7 @@ describe CategoriesController do
       @drama = Fabricate(:category)
     end
     it "assigns @categories for authenticated users" do
-      request.session[:user_id] = Fabricate(:user).id
+      session[:user_id] = Fabricate(:user).id
 
       get :index
       expect(assigns(:categories)).to eq([@comedy, @drama])
@@ -24,7 +24,7 @@ describe CategoriesController do
 
   describe "GET show" do
     it "assigns @category for authenticated users" do
-      request.session[:user_id] = Fabricate(:user).id
+      session[:user_id] = Fabricate(:user).id
       get :show, id: @comedy
       expect(assigns(:category)).to eq(@comedy)
     end

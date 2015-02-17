@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
   
   def login_user!(user)
     session[:user_id] = user.id #this is backed by the browsers cookie to track if the user is authenticated
-    flash[:success] = "Welcome #{current_user.email_address}, you're logged in!"
+    flash[:success] = "Welcome #{current_user.full_name}, you're logged in!"
     redirect_to home_path
   end
   
