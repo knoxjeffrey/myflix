@@ -12,13 +12,14 @@ describe SessionsController do
   
   describe "POST create" do
     context "valid input details" do
+      let(:valid_user){ Fabricate(:user) }
+      
       before do
-        @valid_user = Fabricate(:user)
-        post :create, email_address: @valid_user.email_address, password: @valid_user.password
+        post :create, email_address: valid_user.email_address, password: valid_user.password
       end
       
       it "creates new session id from user id" do
-        expect(session[:user_id]).to eq(@valid_user.id)
+        expect(session[:user_id]).to eq(valid_user.id)
       end
       
       it "generates a successful flash message" do
