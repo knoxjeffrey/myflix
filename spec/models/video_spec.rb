@@ -63,5 +63,20 @@ describe Video do
     end
   
   end
+  
+  describe :average_rating do
+    let(:video) { Fabricate(:video) }
+    it "returns a rating of zero if there are no reviews" do
+      expect(video.average_rating).to eq(0)
+    end
+    
+    it "should display the average score for a video" do
+      Fabricate(:review, rating: 5, video: video, user: Fabricate(:user))
+      Fabricate(:review, rating: 1, video: video, user: Fabricate(:user))
+      Fabricate(:review, rating: 1, video: video, user: Fabricate(:user))
+      
+      expect(video.average_rating).to eq(2.3)
+    end
+  end
 
 end

@@ -1,6 +1,7 @@
 class Video < ActiveRecord::Base
   
   belongs_to :category
+  has_many :reviews
   
   validates_presence_of :title, :description
   
@@ -21,6 +22,13 @@ class Video < ActiveRecord::Base
     else  
       "http://dummyimage.com/665x375/000/fff.png&text=No+Preview+Available"
     end
+  end
+  
+  # calulate average rating for video to 1 decimal point
+  def average_rating
+    sum_of_ratings = self.reviews.sum(:rating).to_f
+    count_rating = self.reviews.count
+    self.reviews.present? ? (sum_of_ratings/count_rating).round(1) : 0
   end
   
 end
