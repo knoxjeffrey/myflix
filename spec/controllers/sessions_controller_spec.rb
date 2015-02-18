@@ -4,7 +4,7 @@ describe SessionsController do
   
   describe "GET new" do
     it "redirects to home path if already logged in" do
-      session[:user_id] = Fabricate(:user).id
+      session[:user_id] = object_generator(:user).id
       get :new
       expect(response).to redirect_to home_path
     end
@@ -12,7 +12,7 @@ describe SessionsController do
   
   describe "POST create" do
     context "valid input details" do
-      let(:valid_user){ Fabricate(:user) }
+      let(:valid_user) { object_generator(:user) }
       
       before do
         post :create, email_address: valid_user.email_address, password: valid_user.password
@@ -33,7 +33,7 @@ describe SessionsController do
     
     context "invalid input details" do
       before do
-        valid_user = Fabricate(:user)
+        valid_user = object_generator(:user)
         post :create, email_address: valid_user.email_address, password: 'aa'
       end
       
@@ -53,7 +53,7 @@ describe SessionsController do
   
   describe "GET destroy" do
     before do
-      session[:user_id] = Fabricate(:user).id
+      session[:user_id] = object_generator(:user).id
       get :destroy
     end
     

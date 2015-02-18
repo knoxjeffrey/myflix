@@ -17,6 +17,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  config.include FactoryHelper #includes the FactoryHelper module for all tests
+  config.include SessionHelper, type: :feature #includes SessionHelper module only for feature tests
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -58,4 +60,12 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/v/3-0/docs
   config.infer_spec_type_from_file_location!
+  
+  # to allow CSS and Javascript to be loaded when we use save_and_open_page, the
+  # development server must be running at localhost:3000 as specified below or
+  # wherever you want. See original issue here:
+  #https://github.com/jnicklas/capybara/pull/609
+  # and final resolution here:
+  #https://github.com/jnicklas/capybara/pull/958
+  Capybara.asset_host = "http://localhost:3000"
 end

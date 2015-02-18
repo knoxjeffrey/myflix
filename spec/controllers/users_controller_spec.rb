@@ -10,7 +10,7 @@ describe UsersController do
     end
     
     it "redirects to home path if already logged in" do
-      session[:user_id] = Fabricate(:user).id
+      session[:user_id] = object_generator(:user).id
       get :new
       expect(response).to redirect_to home_path
     end
@@ -18,7 +18,7 @@ describe UsersController do
   
   describe "POST create" do
     context "valid input details" do
-      before { post :create, user: Fabricate.attributes_for(:user) }
+      before { post :create, user: generate_attributes_for(:user) }
       
       it "creates user record" do
         expect(User.count).to eq(1)

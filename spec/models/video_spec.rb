@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Video do
   
   it { should belong_to :category }
+  it { should have_many(:reviews).order(created_at: :desc) }
   
   it { should validate_presence_of :title }
   it { should validate_presence_of :description }
@@ -40,7 +41,7 @@ describe Video do
   
   describe :display_large_video_image do
     
-    let(:video) { Fabricate(:video, small_cover_url: "/tmp/monk.jpg") }
+    let(:video) { object_generator(:video, small_cover_url: "/tmp/monk.jpg") }
     subject { video.display_large_video_image }
     
     it "should display a large video image if one is available" do
@@ -65,15 +66,15 @@ describe Video do
   end
   
   describe :average_rating do
-    let(:video) { Fabricate(:video) }
+    let(:video) { object_generator(:video) }
     it "returns a rating of zero if there are no reviews" do
       expect(video.average_rating).to eq(0)
     end
     
     it "should display the average score for a video" do
-      Fabricate(:review, rating: 5, video: video, user: Fabricate(:user))
-      Fabricate(:review, rating: 1, video: video, user: Fabricate(:user))
-      Fabricate(:review, rating: 1, video: video, user: Fabricate(:user))
+      object_generator(:review, rating: 5, video: video, user: object_generator(:user))
+      object_generator(:review, rating: 1, video: video, user: object_generator(:user))
+      object_generator(:review, rating: 1, video: video, user: object_generator(:user))
       
       expect(video.average_rating).to eq(2.3)
     end

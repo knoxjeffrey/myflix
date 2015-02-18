@@ -1,6 +1,12 @@
 %article.video_category
   .videos.row
-    - @search_results.each do |video|
-      .video.col-sm-2
-        = link_to video_path(video) do
-          %img(src="#{video.small_cover_url}")
+    - if @search_results.all.any?
+      - @search_results.each do |video|
+        = div_for video do
+          .video.col-sm-2
+            = link_to video_path(video) do
+              %img(src="#{video.small_cover_url}")
+    - else
+      .video.col-sm-4
+        %p.lead.text-muted No results found for #{params[:video_title]}
+   

@@ -1,0 +1,6 @@
+- if controller_object.errors.any?
+  .alert.alert-danger
+    %h5= "#{pluralize(controller_object.errors.count, 'error')} in this form:"
+    %ul
+      - controller_object.errors.full_messages.each do |msg|
+        %li= msg
