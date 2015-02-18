@@ -1,4 +1,4 @@
-class CustomFormBuilder < ActionView::Helpers::FormBuilder
+class HorizontalFormBuilder < ActionView::Helpers::FormBuilder
   
   # field_helpers contains the names of all helper methods and I'm setting rules for the ones I need
   # define_method is used to dynamically create the helper methods I need

@@ -21,11 +21,15 @@ group :development, :test do
   gem 'pry'
   gem 'pry-nav'
   gem 'rspec-rails', '2.99'
+  gem 'faker', '~> 1.4.3'
 end
 
 group :test do
   gem 'database_cleaner', '1.2.0'
   gem 'shoulda-matchers'
+  gem 'fabrication'
+  gem "capybara-webkit"
+  gem 'launchy', '~> 2.4.3'
 end
 
 group :production do

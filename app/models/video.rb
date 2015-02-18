@@ -1,6 +1,7 @@
 class Video < ActiveRecord::Base
   
   belongs_to :category
+  has_many :reviews, -> { order created_at: :desc }
   
   validates_presence_of :title, :description
   
@@ -21,6 +22,11 @@ class Video < ActiveRecord::Base
     else  
       "http://dummyimage.com/665x375/000/fff.png&text=No+Preview+Available"
     end
+  end
+  
+  # calulate average rating for video to 1 decimal point
+  def average_rating
+    self.reviews.average(:rating) ? reviews.average(:rating).round(1) : 0
   end
   
 end

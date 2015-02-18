@@ -49,4 +49,13 @@ Video.create(title: "Futurama",
             description: "Accidentally frozen, pizza-deliverer Fry wakes up 1,000 years in the future.",
             small_cover_url: "/tmp/futurama.jpg",
             category_id: 1)
-            
+
+User.create(email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: "Jeff Knox")
+User.create(email_address: 'knoxjeffrey@hotmail.com', password: 'password', full_name: "Hazel Knox")
+
+Review.create(user: User.find(1), video: Video.find(1), rating: 2, body: Faker::Lorem.paragraph)
+Review.create(user: User.find(2), video: Video.find(1), rating: 5, body: Faker::Lorem.paragraph)
+Review.create(user: User.find(1), video: Video.find(1), rating: 4, body: Faker::Lorem.paragraph)
+Review.create(user: User.find(2), video: Video.find(1), rating: 3, body: Faker::Lorem.paragraph)
+Review.create(user: User.find(2), video: Video.find(1), rating: 1, body: Faker::Lorem.paragraph)
+Review.create(user: User.find(1), video: Video.find(1), rating: 5, body: Faker::Lorem.paragraph)
