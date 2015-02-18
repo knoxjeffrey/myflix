@@ -26,9 +26,7 @@ class Video < ActiveRecord::Base
   
   # calulate average rating for video to 1 decimal point
   def average_rating
-    sum_of_ratings = self.reviews.sum(:rating).to_f
-    count_rating = self.reviews.count
-    self.reviews.present? ? (sum_of_ratings/count_rating).round(1) : 0
+    self.reviews.average(:rating) ? reviews.average(:rating).round(1) : 0
   end
   
 end
