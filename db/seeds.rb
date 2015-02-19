@@ -60,5 +60,5 @@ Review.create(user: User.find(2), video: Video.find(1), rating: 3, body: Faker::
 Review.create(user: User.find(2), video: Video.find(1), rating: 1, body: Faker::Lorem.paragraph)
 Review.create(user: User.find(1), video: Video.find(1), rating: 5, body: Faker::Lorem.paragraph)
 
-QueueItem.create(user: User.find(1), video: Video.find(1))
-QueueItem.create(user: User.find(1), video: Video.find(2))
+QueueItem.create(list_position: 1, user: User.find(1), video: Video.find(1))
+QueueItem.create(list_position: 2, user: User.find(1), video: Video.find(2))
