@@ -92,5 +92,52 @@ describe QueueItemsController do
     
   end
   
+  describe "DELETE destroy" do
+    context "with authenticated user" do
+      
+      context "with queued list associated with authenticated user" do
+        let(:valid_user) { object_generator(:user) }
+        let(:new_video) { object_generator(:video) }
+    
+        before do
+          queue_item = object_generator(:queue_item, video: new_video, user: valid_user)
+          session[:user_id] = valid_user.id
+          delete :destroy, id: queue_item.id
+        end
+    
+        it "should remove the item from the list of queued items" do
+          expect(valid_user.queue_items.count).to eq(0)
+        end
+      
+        it "should redirect to my_queue page" do
+          expect(response).to redirect_to my_queue_path
+        end
+      end
+      
+      context "with queued list not associated with authenticated user" do
+        let(:valid_user) { object_generator(:user) }
+        let(:other_user) { object_generator(:user) }
+        let(:new_video) { object_generator(:video) }
+        
+        before do
+          non_user_queue_item = object_generator(:queue_item, video: new_video, user: other_user)
+          session[:user_id] = valid_user.id
+          delete :destroy, id: non_user_queue_item.id
+        end
+        
+        it "should not remove the item from the list of queued items" do
+           expect(other_user.queue_items.count).to eq(1)
+        end
+      end
+    end
+    
+    context "with unauthenticated user" do
+      it "redirects to the root page" do
+        delete :destroy, id: 1
+        expect(response).to redirect_to root_path
+      end
+    end
+  end
+  
 end
   
