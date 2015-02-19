@@ -69,13 +69,16 @@ describe QueueItemsController do
       context "when the item is already in the list" do
         before do
           session[:user_id] = valid_user.id
+          object_generator(:queue_item, video: new_video, user: valid_user)
+          post :create, video_id: new_video.id, user_id: valid_user.id
         end
         
         it "should not create a new queue item" do
-          object_generator(:queue_item, video: new_video, user: valid_user)
-          
-          post :create, video_id: new_video.id, user_id: valid_user.id
           expect(valid_user.queue_items.count).to eq(1)
+        end
+        
+        it "should display a message to inform the user that the item is already in the list" do
+          expect(flash[:danger]).to be_present
         end
       end
     end

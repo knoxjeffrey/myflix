@@ -14,7 +14,11 @@ class QueueItemsController < ApplicationController
   private
   
   def queue_the_item(item)
-    QueueItem.create(video_id: item.id, user_id: current_user.id, list_position: end_of_list) unless queue_item_exists?(item)
+    if queue_item_exists?(item)
+      flash[:danger] = "#{item.title} is already in your list of queued items"
+    else
+      QueueItem.create(video_id: item.id, user_id: current_user.id, list_position: end_of_list)
+    end
   end
   
   def queue_item_exists?(item)
