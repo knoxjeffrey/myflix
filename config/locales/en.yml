@@ -8,3 +8,10 @@ en:
     attributes:
       review:
         body: "Review"
+        user_id: ""
+    errors:
+      models:
+        review:
+          attributes:
+            user_id:
+              taken: "You can only review this video once"

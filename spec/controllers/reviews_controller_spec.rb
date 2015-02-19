@@ -60,6 +60,14 @@ describe ReviewsController do
           expect(assigns(:video).reviews).to match_array([])
         end
       end
+      
+      context "the user has already made a review for the current video" do
+        it "does not create a new review" do
+          object_generator(:review, video: new_video, user: valid_user)
+          post :create, review: {rating: 1}, video_id: new_video.id
+          expect(new_video.reviews.count).to eq(1)
+        end
+      end
     
     end
     
@@ -68,7 +76,7 @@ describe ReviewsController do
       let(:new_video) { object_generator(:video) }
       
       before do 
-        post :create, review: {rating: 1}, video_id: new_video.id
+        post :create, review: object_generator(:review), video_id: new_video.id
       end
       
       it "redirects to the root page" do

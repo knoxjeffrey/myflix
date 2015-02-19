@@ -27,6 +27,6 @@
                 %td
                   = link_to queued_item.category_name, queued_item.category
                 %td
-                  = link_to queue_item_path(queued_item), method: :delete, confirm: "Are you sure?" do
+                  = link_to queue_item_path(queued_item), { method: :delete, data: { confirm: "Are you sure?" } } do
                     %i.glyphicon.glyphicon-remove
         = button_to "Update Instant Queue", nil, class: "btn btn-default"
