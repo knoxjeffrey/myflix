@@ -13,7 +13,7 @@ describe VideosController do
     it "assigns @reviews for authenticated users" do
       session[:user_id] = object_generator(:user).id
       review1 = object_generator(:review, video: test_video)
-      review2 = object_generator(:review, video: test_video)
+      review2 = object_generator(:review, video: test_video, user: object_generator(:user))
       get :show, id: test_video
       expect(assigns(:video).reviews).to match_array([review1, review2])
     end
