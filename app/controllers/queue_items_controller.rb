@@ -21,10 +21,7 @@ class QueueItemsController < ApplicationController
   
   # sort the queue items by their list position
   def sort
-    if !position_is_integer?
-      flash[:danger] = "You can only enter integer numbers in the list order"
-      redirect_to my_queue_path and return
-    end
+    redirect_to my_queue_path and return if invalid_inputs?
     
     normalize_queue_item_positions
    
@@ -53,10 +50,10 @@ class QueueItemsController < ApplicationController
     item.user_id == current_user.id
   end
   
-  def check_position_for_non_integers
+  def invalid_inputs?
     if !position_is_integer?
       flash[:danger] = "You can only enter integer numbers in the list order"
-      redirect_to my_queue_path and return
+      true
     end
   end
   
