@@ -23,6 +23,8 @@ Myflix::Application.routes.draw do
   
   resources :categories, only: [:show]
   
-  resources :queue_items, only: [:create, :destroy]
+  resources :queue_items, only: [:create, :destroy] do
+    post :sort, on: :collection
+  end
   
 end

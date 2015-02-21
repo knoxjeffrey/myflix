@@ -2,6 +2,8 @@ class QueueItem < ActiveRecord::Base
   belongs_to :user
   belongs_to :video
   
+  validates_numericality_of :list_position, { only_integer: true }
+  
   # This means I don't need a category method to return video.category.
   # When QueueItem.category is called it automatically looks for video.category
   # Also, for category_name I don't need video.category.name because video.category is already delegated as category
