@@ -64,19 +64,20 @@ class QueueItemsController < ApplicationController
   end
   
   def normalize_queue_item_positions
-    if params[:action] == 'sort'
-      order_by_postion_number.each_with_index do |data, index|
-        update_list(data, index)
-      end
-    elsif params[:action] == 'destroy'
-      current_user.queue_items.each_with_index do |queue_item, index|
-        update_list(queue_item, index)
-      end
+    order_by_postion_number.each_with_index do |data, index|
+      update_list(data, index)
     end
   end
   
+  # the user can change the order of the list position number so they may now be out of order
+  # this invokes the sort method which will sort the list by the list position numbers the user has entered and return an array
+  # with a delete action there is no :queue_array in the params so the queue items of the current user is returned instead
   def order_by_postion_number
-    params[:queue_array].sort_by{|data| data[:position] }
+    if params.has_key?(:queue_array)
+      params[:queue_array].sort_by{ |data| data[:position] }
+    else
+      current_user.queue_items
+    end
   end
   
   def update_list(data, index)
