@@ -10,7 +10,7 @@ module ApplicationHelper
   end
   
   def star_rating
-    [5,4,3,2,1].map { |rating| [pluralize(rating, 'Star')]}
+    [5,4,3,2,1].map { |rating| [pluralize(rating, 'Star'), rating]}
   end
 
 end

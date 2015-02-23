@@ -36,6 +36,40 @@ describe QueueItem do
     end
   end
   
+  describe :rating= do
+    let(:video1) { object_generator(:video) }
+    let(:user1) { object_generator(:user) }
+    
+    context "when review present" do
+
+      it "changes the rating of the video" do
+        review1 = object_generator(:review, video: video1, rating: 5, user: user1)
+        queue_item1 = object_generator(:queue_item, video: video1, user: user1)
+        queue_item1.rating = 4
+        
+        expect(Review.first.rating).to eq(4)
+      end 
+      
+      it "destroys the review if rating is changed to blank" do
+        review1 = object_generator(:review, video: video1, rating: 5, user: user1)
+        queue_item1 = object_generator(:queue_item, video: video1, user: user1)
+        queue_item1.rating = ''
+        
+        expect(Review.where(video: video1, user: user1)).not_to exist
+      end 
+    end
+    
+    context "when no review" do
+      
+      it "creates a new rating for the video" do
+        queue_item1 = object_generator(:queue_item, video: video1, user: user1)
+        queue_item1.rating = 4
+        
+        expect(Review.first.rating).to eq(4)
+      end
+    end
+  end
+  
   describe :category_name do
     it "returns the category name of the associated video" do
       category1 = object_generator(:category)

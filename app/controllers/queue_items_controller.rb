@@ -13,7 +13,7 @@ class QueueItemsController < ApplicationController
 
   def destroy
     queued_item = QueueItem.find(params[:id])
-    queued_item.destroy if belongs_to_current_user?(queued_item)
+    queued_item.destroy if current_user.owns_item?(queued_item)
     normalize_queue_item_positions
     
     redirect_to my_queue_path
@@ -31,25 +31,13 @@ class QueueItemsController < ApplicationController
   private
   
   def queue_the_item(item)
-    if queue_item_exists?(item)
+    if current_user.queue_item_exists?(item)
       flash[:danger] = "#{item.title} is already in your queue"
     else
-      QueueItem.create(video_id: item.id, user_id: current_user.id, list_position: end_of_list)
+      QueueItem.create(video_id: item.id, user_id: current_user.id, list_position: current_user.end_of_list)
     end
   end
-  
-  def queue_item_exists?(item)
-    QueueItem.exists?(video_id: item, user_id: current_user.id)
-  end
-  
-  def end_of_list
-    current_user.queue_items.count + 1
-  end
-  
-  def belongs_to_current_user?(item)
-    item.user_id == current_user.id
-  end
-  
+
   def invalid_inputs?
     if !position_is_integer?
       flash[:danger] = "You can only enter integer numbers in the list order"
@@ -81,7 +69,7 @@ class QueueItemsController < ApplicationController
   end
   
   def update_list(data, index)
-    QueueItem.update(data[:id], list_position: index+1) if QueueItem.find(data[:id]).user == current_user
+    QueueItem.update(data[:id], list_position: index+1, rating: data[:rating]) if QueueItem.find(data[:id]).user == current_user
   end
   
 end

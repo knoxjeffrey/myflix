@@ -25,7 +25,7 @@
                   %td
                     = button_to "Play", nil, class: "btn btn-default"
                   %td
-                    = queued_item.rating
+                    = select_tag "queue_array[][rating]", options_for_select(star_rating, queued_item.rating), { include_blank: true, class: 'form-control' }
                   %td
                     = link_to queued_item.category_name, queued_item.category
                   %td

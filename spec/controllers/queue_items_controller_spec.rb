@@ -103,7 +103,7 @@ describe QueueItemsController do
       context "with queued list associated with authenticated user" do
         let(:valid_user) { object_generator(:user) }
         let(:new_video) { object_generator(:video) }
-        let(:queue_item) { object_generator(:queue_item, video: new_video, user: valid_user) }
+        let!(:queue_item) { object_generator(:queue_item, video: new_video, user: valid_user) }
         
         before do
           session[:user_id] = valid_user.id
@@ -120,7 +120,8 @@ describe QueueItemsController do
         end
         
         it "normalizes the queue items" do
-          queue_item2 = object_generator(:queue_item, user: valid_user, list_position: 2)
+          new_video2 =  object_generator(:video) 
+          queue_item2 = object_generator(:queue_item, video: new_video, user: valid_user, list_position: 2)
           delete :destroy, id: queue_item.id
           expect(QueueItem.first.list_position).to eq(1)
         end

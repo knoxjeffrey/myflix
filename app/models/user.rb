@@ -9,4 +9,16 @@ class User < ActiveRecord::Base
   
   has_secure_password validations: false
   
+  def queue_item_exists?(item)
+    self.queue_items.exists?(video_id: item)
+  end
+  
+  def end_of_list
+    self.queue_items.count + 1
+  end
+  
+  def owns_item?(item)
+    item.user_id == self.id
+  end
+  
 end

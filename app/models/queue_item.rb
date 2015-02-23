@@ -14,11 +14,27 @@ class QueueItem < ActiveRecord::Base
   delegate :title, to: :video, prefix: :video
   
   def rating
-    review = Review.where(user_id: user.id, video_id: video.id).first
     review.rating if review
+  end
+  
+  def rating=(new_rating)
+    if review && new_rating.blank?
+      review.destroy
+    elsif review
+      Review.update(review.id, rating: new_rating)
+    elsif new_rating.present?
+      new_record = Review.new(user_id: user.id, video_id: video.id, rating: new_rating)
+      new_record.save(validate: false)
+    end
   end
   
   def category_name
     category.name
+  end
+  
+  private
+  
+  def review
+    @review_record ||= Review.where(user_id: user.id, video_id: video.id).first
   end
 end
