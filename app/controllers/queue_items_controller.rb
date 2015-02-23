@@ -53,7 +53,7 @@ class QueueItemsController < ApplicationController
   
   def normalize_queue_item_positions
     order_by_postion_number.each_with_index do |data, index|
-      update_list(data, index)
+      QueueItem.update_list(data, index) if QueueItem.find(data[:id]).user == current_user
     end
   end
   
@@ -67,9 +67,5 @@ class QueueItemsController < ApplicationController
       current_user.queue_items
     end
   end
-  
-  def update_list(data, index)
-    QueueItem.update(data[:id], list_position: index+1, rating: data[:rating]) if QueueItem.find(data[:id]).user == current_user
-  end
-  
+    
 end
