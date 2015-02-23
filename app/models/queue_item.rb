@@ -32,10 +32,6 @@ class QueueItem < ActiveRecord::Base
     category.name
   end
   
-  def self.update_list(data, index)
-    update(data[:id], list_position: index+1, rating: data[:rating])
-  end
-  
   private
   
   def review
