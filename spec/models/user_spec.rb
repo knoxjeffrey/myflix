@@ -14,4 +14,47 @@ describe User do
   it { should allow_value("test@test.com").for(:email_address) }
   
   it { should validate_length_of(:password).is_at_least(5) } 
+  
+  describe :queue_item_exists? do
+    let(:user) { object_generator(:user) }
+    let(:video) { object_generator(:video) }
+    
+    it "returns true if current user already has video in the queue" do
+      object_generator(:queue_item, user: user, video: video)
+      expect(user.queue_item_exists?(video)).to be true
+    end
+    
+    it "returns false if current does not have video in the queue" do
+      object_generator(:queue_item, video: video)
+      expect(user.queue_item_exists?(video)).to be false
+    end
+  end
+  
+  describe :end_of_list do
+    it "add 1 to the current count of queued items for the user" do
+      user = object_generator(:user) 
+      video = object_generator(:video)
+      object_generator(:queue_item, user: user, video: video)
+      
+      expect(user.end_of_list).to eq(2)
+    end
+  end
+  
+  describe :owns_queued_item? do
+    let(:user) { object_generator(:user) }
+    let(:video) { object_generator(:video) }
+    
+    it "returns true if queued item belongs to the user" do
+      queue_video = object_generator(:queue_item, user: user, video: video)
+      
+      expect(user.owns_queued_item?(queue_video)).to be true
+    end
+    
+    it "returns false if the queued item does not belong to the user" do
+      user1 = object_generator(:user) 
+      queue_video = object_generator(:queue_item, user: user1, video: video)
+      
+      expect(user.owns_queued_item?(queue_video)).to be false
+    end
+  end
 end

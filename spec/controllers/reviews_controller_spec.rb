@@ -4,11 +4,10 @@ describe ReviewsController do
   
   describe "POST create" do
     context "with authenticated user" do
-      let(:valid_user) { object_generator(:user) }
       let(:new_video) { object_generator(:video) }
       
       before do 
-        session[:user_id] = valid_user.id
+        set_current_user_session
       end
       
       context "with valid user input" do
@@ -26,7 +25,7 @@ describe ReviewsController do
         end
         
         it "creates a new review associated with the user" do
-          expect(Review.first.user).to eq(valid_user)
+          expect(Review.first.user).to eq(current_user)
         end
         
         it "generates a successful flash message" do
@@ -63,7 +62,7 @@ describe ReviewsController do
       
       context "the user has already made a review for the current video" do
         it "does not create a new review" do
-          object_generator(:review, video: new_video, user: valid_user)
+          object_generator(:review, video: new_video, user: current_user)
           post :create, review: {rating: 1}, video_id: new_video.id
           expect(new_video.reviews.count).to eq(1)
         end
@@ -74,13 +73,9 @@ describe ReviewsController do
     
     context "with unauthenticated user" do
       let(:new_video) { object_generator(:video) }
-      
-      before do 
-        post :create, review: object_generator(:review), video_id: new_video.id
-      end
-      
-      it "redirects to the root page" do
-        expect(response).to redirect_to root_path
+
+      it_behaves_like "require_sign_in" do
+        let(:action) { post :create, review: object_generator(:review), video_id: new_video.id }
       end
     end
   end

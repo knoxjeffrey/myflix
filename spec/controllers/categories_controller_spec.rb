@@ -7,28 +7,26 @@ describe CategoriesController do
     let(:drama) { object_generator(:category) }
     
     it "assigns @categories for authenticated users" do
-      session[:user_id] = object_generator(:user).id
+      set_current_user_session
 
       get :index
       expect(assigns(:categories)).to eq([comedy, drama])
     end
-    
-    it "redirects user to root page if user not authenticated" do
-      get :index
-      expect(response).to redirect_to root_path
+
+    it_behaves_like "require_sign_in" do
+      let(:action) { get :index }
     end
   end
 
   describe "GET show" do
     it "assigns @category for authenticated users" do
-      session[:user_id] = object_generator(:user).id
+      set_current_user_session
       get :show, id: comedy
       expect(assigns(:category)).to eq(comedy)
     end
     
-    it "redirects user to root page if user not authenticated" do
-      get :show, id: comedy
-      expect(response).to redirect_to root_path
+    it_behaves_like "require_sign_in" do
+      let(:action) { get :show, id: comedy }
     end
   end
 end

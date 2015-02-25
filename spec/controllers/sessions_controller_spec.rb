@@ -4,7 +4,7 @@ describe SessionsController do
   
   describe "GET new" do
     it "redirects to home path if already logged in" do
-      session[:user_id] = object_generator(:user).id
+      set_current_user_session
       get :new
       expect(response).to redirect_to home_path
     end
@@ -53,7 +53,7 @@ describe SessionsController do
   
   describe "GET destroy" do
     before do
-      session[:user_id] = object_generator(:user).id
+      set_current_user_session
       get :destroy
     end
     

@@ -10,7 +10,7 @@ describe UsersController do
     end
     
     it "redirects to home path if already logged in" do
-      session[:user_id] = object_generator(:user).id
+      set_current_user_session
       get :new
       expect(response).to redirect_to home_path
     end
