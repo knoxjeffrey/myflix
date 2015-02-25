@@ -18,7 +18,6 @@
               - @queue_items.each do |queued_item|
                 %tr
                   %td
-                  = content_tag_for :td, queued_item do
                     = text_field_tag "queue_array[][position]", queued_item.list_position
                     = hidden_field_tag "queue_array[][id]", queued_item.id
                   %td

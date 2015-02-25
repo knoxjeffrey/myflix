@@ -22,15 +22,15 @@ feature "user amends the queue" do
     
     add_video_to_queue(south_park)
     
-    set_video_position(valid_user, futurama, 3)
-    set_video_position(valid_user, monk, 1)
-    set_video_position(valid_user, south_park, 2)
+    set_video_position(futurama, 3)
+    set_video_position(monk, 1)
+    set_video_position(south_park, 2)
     
     update_queue
     
-    expect_video_position(valid_user, monk, 1)
-    expect_video_position(valid_user, south_park, 2)
-    expect_video_position(valid_user, futurama, 3)
+    expect_video_position(monk, 1)
+    expect_video_position(south_park, 2)
+    expect_video_position(futurama, 3)
 
   end
   
@@ -56,18 +56,14 @@ feature "user amends the queue" do
     click_button "Update Instant Queue"
   end
   
-  def set_video_position(user, video, position)
-    video_in_queue = user.queue_items.where(['video_id = ?', video.id]).first
-    within "#queue_item_#{video_in_queue.id}" do 
-      find('input[type=text]').set(position) 
-    end 
+  def set_video_position(video, position)
+    within(:xpath, "//tr[contains(.,'#{video.title}')]") do
+      fill_in "queue_array[][position]", with: position
+    end
   end
   
-  def expect_video_position(user, video, position)
-    video_in_queue = user.queue_items.where(['video_id = ?', video.id]).first
-    within "#queue_item_#{video_in_queue.id}" do 
-      expect(find('input[type=text]').value).to eq(position.to_s)
-    end
+  def expect_video_position(video, position)
+    expect(find(:xpath, "//tr[contains(.,'#{video.title}')]//input[@type='text']").value).to eq(position.to_s)
   end
 
 end
