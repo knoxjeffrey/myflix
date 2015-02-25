@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
     self.queue_items.count + 1
   end
   
-  def owns_item?(item)
+  def owns_queued_item?(item)
     item.user_id == self.id
   end
   
