@@ -30,18 +30,25 @@ describe FriendshipsController do
       before { set_current_user_session }
       
       context "when the user not following the person" do
-        
-        before { post :create, friend_id: user1 }
+
         it "redirects to the people path" do
+          post :create, friend_id: user1
           expect(response).to redirect_to people_path
         end
         
         it "creates a new friendship" do
+          post :create, friend_id: user1
           expect(Friendship.count).to eq(1)
         end
         
         it "creates a new friendship associated with the person" do
+          post :create, friend_id: user1
           expect(Friendship.first.friend).to eq(user1)
+        end
+        
+        it "does not allow the current user to follow themselves" do
+          post :create, friend_id: current_user
+          expect(Friendship.count).to eq(0)
         end
       end
       
@@ -55,10 +62,6 @@ describe FriendshipsController do
         it "does not create a new friendship" do
           expect(Friendship.count).to eq(1)
         end 
-        
-        it "displays a warning message to inform the current user that they are already following the person" do
-          expect(flash[:danger]).to be_present
-        end
       end
       
     end

@@ -7,9 +7,8 @@ class FriendshipsController < ApplicationController
   end
   
   def create
-    #binding.pry
-    new_friend = User.find(params[:friend_id])
-    add_as_friend(new_friend)
+    another_user = User.find(params[:friend_id])
+    add_as_friend(another_user)
     
     redirect_to people_path
   end
@@ -26,12 +25,8 @@ class FriendshipsController < ApplicationController
     friendship.destroy if friendship.user == current_user
   end
   
-  def add_as_friend(add_friend)
-    if current_user.friendships.exists?(friend: add_friend)
-      flash[:danger] = "You are already following #{add_friend.full_name}"
-    else
-      Friendship.create(user: current_user, friend: add_friend)
-    end
+  def add_as_friend(another_user)
+    Friendship.create(user: current_user, friend: another_user) unless current_user.cannot_follow?(another_user)
   end
   
 end
