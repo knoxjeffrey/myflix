@@ -52,6 +52,7 @@ Video.create(title: "Futurama",
 
 User.create(email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: "Jeff Knox")
 User.create(email_address: 'knoxjeffrey@hotmail.com', password: 'password', full_name: "Hazel Knox")
+User.create(email_address: 'info@tamars.co.uk', password: 'password', full_name: "Ruaridh Knox")
 
 Review.create(user: User.find(1), video: Video.find(1), rating: 2, body: Faker::Lorem.paragraph)
 Review.create(user: User.find(2), video: Video.find(1), rating: 5, body: Faker::Lorem.paragraph)
@@ -62,3 +63,8 @@ Review.create(user: User.find(1), video: Video.find(4), rating: 5, body: Faker::
 
 QueueItem.create(list_position: 1, user: User.find(1), video: Video.find(1))
 QueueItem.create(list_position: 2, user: User.find(1), video: Video.find(2))
+QueueItem.create(list_position: 1, user: User.find(2), video: Video.find(1))
+
+Friendship.create(user: User.find(1), friend: User.find(2))
+Friendship.create(user: User.find(1), friend: User.find(3))
+Friendship.create(user: User.find(2), friend: User.find(1))

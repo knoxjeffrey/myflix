@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   has_many :reviews, -> { order created_at: :desc }
   has_many :queue_items, -> { order list_position: :asc }
+  has_many :friendships
+  has_many :people_they_are_following, through: :friendships, source: :friend
+  has_many :people_that_are_following_them, through: :friendships, source: :user
   
   validates :email_address, presence: true, uniqueness: true
   validates_format_of :email_address, with: /@[A-Za-z0-9.-]+\./
@@ -20,5 +23,4 @@ class User < ActiveRecord::Base
   def owns_queued_item?(item)
     item.user_id == self.id
   end
-  
 end
