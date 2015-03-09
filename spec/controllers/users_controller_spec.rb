@@ -45,4 +45,25 @@ describe UsersController do
       end
     end
   end
+  
+  describe "GET show" do
+    let(:chosen_user) { object_generator(:user) }
+    context "with authenticted user do" do
+      
+      before do
+        set_current_user_session
+        get :show, id: chosen_user
+      end
+      
+      it "assigns @user" do
+        expect(assigns(:user)).to be_instance_of(User)
+      end
+    end
+    
+    context "with unauthenticted user do" do
+      it_behaves_like "require_sign_in" do
+        let(:action) { get :show, id: chosen_user }
+      end
+    end
+  end
 end

@@ -14,7 +14,7 @@ Myflix::Application.routes.draw do
   
   get 'ui(/:action)', controller: 'ui'
   
-  resources :users, only: [:create]
+  resources :users, only: [:create, :show]
   
   resources :videos, only: [:show] do
     get :search, on: :collection
