@@ -29,6 +29,6 @@ Myflix::Application.routes.draw do
     post :sort, on: :collection
   end
   
-  resources :friendships, only: [:destroy]
+  resources :friendships, only: [:create, :destroy]
   
 end
