@@ -11,16 +11,19 @@ feature "user amends the queue" do
     
     sign_in_user(valid_user)
     
-    add_video_to_queue(futurama)
+    go_to_video_page(futurama)
+    add_video_to_queue
     expect_to_be_on_my_queue_page
     expect_video_to_be_in_queue(futurama)
     
     visit video_path(futurama)
     expect_link_not_to_be_seen("+ My Queue")
     
-    add_video_to_queue(monk)
+    go_to_video_page(monk)
+    add_video_to_queue
     
-    add_video_to_queue(south_park)
+    go_to_video_page(south_park)
+    add_video_to_queue
     
     set_video_position(futurama, 3)
     set_video_position(monk, 1)
@@ -46,9 +49,7 @@ feature "user amends the queue" do
     expect(page).not_to have_content link_text
   end
   
-  def add_video_to_queue(video)
-    visit home_path
-    find("a[href='/videos/#{video.id}']").click
+  def add_video_to_queue
     click_link "+ My Queue"
   end
   

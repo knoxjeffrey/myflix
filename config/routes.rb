@@ -12,9 +12,11 @@ Myflix::Application.routes.draw do
   
   get '/my_queue', to: 'queue_items#index'
   
+  get '/people', to: 'friendships#index'
+  
   get 'ui(/:action)', controller: 'ui'
   
-  resources :users, only: [:create]
+  resources :users, only: [:create, :show]
   
   resources :videos, only: [:show] do
     get :search, on: :collection
@@ -26,5 +28,7 @@ Myflix::Application.routes.draw do
   resources :queue_items, only: [:create, :destroy] do
     post :sort, on: :collection
   end
+  
+  resources :friendships, only: [:create, :destroy]
   
 end

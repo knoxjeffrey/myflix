@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User do
-  it { should have_many :reviews }
+  it { should have_many(:reviews).order(created_at: :desc) }
   it { should have_many(:queue_items).order(list_position: :asc) }
   
   it { should validate_presence_of :email_address }
@@ -55,6 +55,20 @@ describe User do
       queue_video = object_generator(:queue_item, user: user1, video: video)
       
       expect(user.owns_queued_item?(queue_video)).to be false
+    end
+  end
+  
+  describe :follows? do
+    let(:user1) { object_generator(:user) }
+    let(:user2) { object_generator(:user) }
+    
+    it "returns true if current user already follows the user" do
+      object_generator(:friendship, user: user1, friend: user2)
+      expect(user1.follows?(user2)).to be true
+    end
+    
+    it "returns false if current user does not follow the user" do
+      expect(user1.follows?(user2)).to be false
     end
   end
 end
