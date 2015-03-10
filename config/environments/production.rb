@@ -17,4 +17,15 @@ Myflix::Application.configure do
   config.i18n.fallbacks = true
 
   config.active_support.deprecation = :notify
+  
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.live.com",
+    :port                 => 587,
+    :enable_starttls_auto => true,
+    :user_name            => ENV['OUTLOOK_USERNAME'],
+    :password             => ENV['OUTLOOK_PASSWORD'],
+    :domain               => 'knoxjeffrey-myflix.herokuapp.com',
+    :authentication       => 'plain'
+  }
 end
