@@ -20,12 +20,12 @@ Myflix::Application.configure do
   
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.live.com",
+    :address              => "mail.tamars.co.uk",
     :port                 => 587,
-    :enable_starttls_auto => true,
+    :enable_starttls_auto => false,
     :user_name            => ENV['MAIL_USERNAME'],
     :password             => ENV['MAIL_PASSWORD'],
-    :domain               => 'knoxjeffrey-myflix.herokuapp.com',
+    :domain               => 'tamars.co.uk',
     :authentication       => 'plain'
   }
 end
