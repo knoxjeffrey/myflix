@@ -23,8 +23,8 @@ Myflix::Application.configure do
     :address              => "smtp.live.com",
     :port                 => 587,
     :enable_starttls_auto => true,
-    :user_name            => ENV['OUTLOOK_USERNAME'],
-    :password             => ENV['OUTLOOK_PASSWORD'],
+    :user_name            => ENV['MAIL_USERNAME'],
+    :password             => ENV['MAIL_PASSWORD'],
     :domain               => 'knoxjeffrey-myflix.herokuapp.com',
     :authentication       => 'plain'
   }
