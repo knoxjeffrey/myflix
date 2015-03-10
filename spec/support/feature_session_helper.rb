@@ -10,4 +10,9 @@ module FeatureSessionHelper
     expect(current_path).to eq(home_path)
   end
   
+  def go_to_video_page(video)
+    visit home_path
+    find("a[href='/videos/#{video.id}']").click
+  end
+  
 end

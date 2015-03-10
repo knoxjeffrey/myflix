@@ -53,11 +53,6 @@ feature "social networking" do
     expect_not_to_see_follow_link
   end
   
-  def go_to_video_page(video)
-    visit home_path
-    find("a[href='/videos/#{video.id}']").click
-  end
-  
   def click_on_user(user)
     find("a[href='/users/#{user.id}']").click
   end
@@ -79,7 +74,7 @@ feature "social networking" do
   end
   
   def unfollow_user(user)
-    find("a[href='/friendships/#{user.id}']").click
+    find("a[data-method='delete']").click
   end
   
   def expect_user_not_to_be_in_people_i_follow(user)
