@@ -18,7 +18,9 @@ describe UsersController do
   
   describe "POST create" do
     context "valid input details" do
-      before { post :create, user: generate_attributes_for(:user) }
+      before do
+        post :create, user: generate_attributes_for(:user) 
+      end
       
       it "creates user record" do
         expect(User.count).to eq(1)
@@ -44,6 +46,32 @@ describe UsersController do
         expect(assigns(:user)).to be_instance_of(User)
       end
     end
+    
+    context "sending emails" do
+      context "valid input details" do
+        
+        before { post :create, user: { email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: 'Jeff Knox' } }
+        after { ActionMailer::Base.deliveries.clear }
+        
+        it "sends out the email" do
+          expect(ActionMailer::Base.deliveries.last.to).to eq(['knoxjeffrey@outlook.com'])
+        end
+      
+        it "sends email containing the users full name" do
+          expect(ActionMailer::Base.deliveries.last.body).to include("Jeff Knox")
+        end
+      end
+      
+      context "invalid input details" do
+        before { post :create, user: { email_address: 'junk' } }
+        after { ActionMailer::Base.deliveries.clear }
+        
+        it "does not send an email" do
+          expect(ActionMailer::Base.deliveries).to be_empty
+        end
+      end
+    end
+    
   end
   
   describe "GET show" do
