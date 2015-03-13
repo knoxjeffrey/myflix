@@ -16,10 +16,16 @@ class PasswordResetsController < ApplicationController
     user = User.where(token: params[:token]).first
     if user
       user.password = params[:password]
-      user.token = nil
-      user.save
-      flash[:success] = "Your password has been changed, please sign in"
-      redirect_to sign_in_path
+      
+      if user.save
+        user.update_column(:token, nil)
+        flash[:success] = "Your password has been changed, please sign in"
+        redirect_to sign_in_path
+      else
+        @user = user
+        @token = params[:token]
+        render :show
+      end
     else
       redirect_to expired_token_path
     end

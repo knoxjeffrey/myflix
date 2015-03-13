@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   
   validates :email_address, presence: true, uniqueness: true
   validates_format_of :email_address, with: /@[A-Za-z0-9.-]+\./
-  validates :password, presence: true, length: {minimum: 5}
+  validates :password, presence: true, length: {minimum: 5}, on: [:create, :update]
   validates :full_name, presence: true
   
   has_secure_password validations: false

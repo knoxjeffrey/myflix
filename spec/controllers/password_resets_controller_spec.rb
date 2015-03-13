@@ -27,23 +27,50 @@ describe PasswordResetsController do
   describe "POST create" do
     context "with valid token" do
       
-      let!(:valid_user) { object_generator(:user, token: '123456789', password: 'old_password') }
-      before { post :create, token: '123456789', password: 'new_password' }
-      
-      it "redirects to the sign in page" do
-        expect(response).to redirect_to sign_in_path
+      context "with password that fails validation" do
+        let!(:valid_user) { object_generator(:user, token: '123456789', password: 'old_password') }
+        before { post :create, token: '123456789', password: 'tiny' }
+        
+        it "renders the password_resets show template" do
+          expect(response).to render_template :show
+        end
+        
+        it "does not reset the password" do
+          expect(valid_user.password).to eq('old_password')
+        end
+        
+        it "shows error messages" do
+          expect(valid_user.errors).not_to be_nil
+        end
+        
+        it "assigns @user" do
+          expect(assigns(:user)).to eq(valid_user)
+        end
+        
+        it "assigns @token" do
+          expect(assigns(:token)).to eq('123456789')
+        end
       end
       
-      it "updates the users password" do
-        expect(valid_user.reload.authenticate('new_password')).to be_truthy
-      end 
+      context "with password that passes validation" do
+        let!(:valid_user) { object_generator(:user, token: '123456789', password: 'old_password') }
+        before { post :create, token: '123456789', password: 'new_password' }
       
-      it "sets a successful flash message" do
-        expect(flash[:success]).to be_present
-      end
+        it "redirects to the sign in page" do
+          expect(response).to redirect_to sign_in_path
+        end
       
-      it "deletes the users token" do
-        expect(valid_user.reload.token).not_to be_present
+        it "updates the users password" do
+          expect(valid_user.reload.authenticate('new_password')).to be_truthy
+        end 
+      
+        it "sets a successful flash message" do
+          expect(flash[:success]).to be_present
+        end
+      
+        it "deletes the users token" do
+          expect(valid_user.reload.token).not_to be_present
+        end
       end
     end
     
