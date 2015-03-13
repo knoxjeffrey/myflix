@@ -28,4 +28,5 @@ Myflix::Application.configure do
     :domain               => 'tamars.co.uk',
     :authentication       => 'plain'
   }
+  config.action_mailer.default_url_options = { host: 'http://knoxjeffrey-myflix.herokuapp.com/' }
 end
