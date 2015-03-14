@@ -12,12 +12,16 @@ describe ForgotPasswordsController do
         expect(response).to redirect_to forgot_password_confirmation_path
       end
       
-      it "sends an email the the email address" do
+      it "sends an email to the email address" do
         expect(ActionMailer::Base.deliveries.last.to).to eq(['knoxjeffrey@outlook.com'])
       end
       
       it "generates a random token" do
         expect(valid_user.reload.token).to be_present
+      end
+      
+      it "sends email containing a link to password_resets path with the random token" do
+        expect(ActionMailer::Base.deliveries.last.body).to have_link("Reset My Password", href: "http://localhost:3000#{password_resets_path}/#{valid_user.reload.token}")
       end
       
     end
@@ -45,7 +49,7 @@ describe ForgotPasswordsController do
         end
         
         it "shows an error message" do
-          expect(flash[:danger]).to eq("There is no user with that email in the system")
+          expect(flash[:danger]).to be_present
         end
         
       end

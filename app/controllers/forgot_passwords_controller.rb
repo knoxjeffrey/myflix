@@ -13,7 +13,8 @@ class ForgotPasswordsController < ApplicationController
       if params[:email_address].blank?
         flash[:danger] = "Email cannot be blank. Please try again."
       else
-        flash[:danger] = "There is no user with that email in the system"
+        flash[:danger] = "If this is a valid email address you will receive instructions to reset your password in a few minutes.  
+                          If you do not receive an email then please try again."
       end
       
       redirect_to forgot_password_path

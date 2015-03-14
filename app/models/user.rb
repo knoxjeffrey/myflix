@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   
   validates :email_address, presence: true, uniqueness: true
   validates_format_of :email_address, with: /@[A-Za-z0-9.-]+\./
-  validates :password, presence: true, length: {minimum: 5}, on: [:create, :update]
+  validates :password, presence: true, length: {minimum: 5}
   validates :full_name, presence: true
   
   has_secure_password validations: false
@@ -34,5 +34,9 @@ class User < ActiveRecord::Base
   
   def generate_token
     self.update_column(:token, SecureRandom.urlsafe_base64)
+  end
+  
+  def remove_token!
+    self.update_column(:token, nil)
   end
 end
