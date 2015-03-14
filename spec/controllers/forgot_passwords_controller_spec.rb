@@ -21,9 +21,8 @@ describe ForgotPasswordsController do
       end
       
       it "sends email containing a link to password_resets path with the random token" do
-        expect(ActionMailer::Base.deliveries.last.body).to have_link("Reset My Password", href: "http://localhost:3000#{password_resets_path}/#{valid_user.reload.token}")
+        expect(ActionMailer::Base.deliveries.last.body).to include("#{password_resets_path}/#{valid_user.reload.token}")
       end
-      
     end
     
     context "with invalid input" do
