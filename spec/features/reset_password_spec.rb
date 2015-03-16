@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 feature "reset password" do
-  
-  background { clear_emails }
 
   scenario "user successfully resets password" do
     
@@ -29,6 +27,7 @@ feature "reset password" do
     expect_to_be_on_home_path
     expect_page_to_have_user_full_name(valid_user)
     
+    clear_emails
   end
   
   def go_to_sign_in_path
