@@ -10,6 +10,10 @@ describe Invitation do
   it { should_not allow_value("test@test").for(:recipient_email_address) }
   it { should allow_value("test@test.com").for(:recipient_email_address) }
   
+  it_behaves_like "tokenable" do
+    let(:object) { object_generator(:invitation) }
+  end
+  
   describe :clear_token_column do
     it "sets token column to nil" do
       invitation = object_generator(:invitation)

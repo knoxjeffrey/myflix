@@ -5,3 +5,9 @@ shared_examples "require_sign_in" do
     response.should redirect_to root_path
   end
 end
+
+shared_examples "tokenable" do
+  it "generates a token when a user is created" do
+    expect(object.token).to be_present
+  end
+end
