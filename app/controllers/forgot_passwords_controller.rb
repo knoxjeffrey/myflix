@@ -7,7 +7,7 @@ class ForgotPasswordsController < ApplicationController
     
     if user
       user.generate_token
-      AppMailer.send_forgot_password(user).deliver
+      AppMailer.delay.send_forgot_password(user)
       redirect_to forgot_password_confirmation_path
     else
       if params[:email_address].blank?

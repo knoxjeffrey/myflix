@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     
     if @user.save
       check_for_invitation
-      AppMailer.notify_on_user_signup(@user).deliver
+      AppMailer.delay.notify_on_user_signup(@user)
       redirect_to sign_in_path
     else
       render :new
