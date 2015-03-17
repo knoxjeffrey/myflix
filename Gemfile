@@ -32,6 +32,7 @@ group :test do
   gem 'fabrication'
   gem "capybara-webkit"
   gem 'launchy', '~> 2.4.3'
+  gem 'capybara-email'
 end
 
 group :production do

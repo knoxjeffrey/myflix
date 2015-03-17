@@ -71,4 +71,20 @@ describe User do
       expect(user1.follows?(user2)).to be false
     end
   end
+  
+  describe :follow do
+    let(:user1) { object_generator(:user) }
+    let(:user2) { object_generator(:user) }
+    
+    it "follows another user" do
+      user1.follow(user2)
+      expect(user1.follows?(user2)).to be true
+    end
+    
+    it "doesn't follow oneself" do
+      user1.follow(user1)
+      expect(user1.follows?(user1)).to be false
+    end
+    
+  end
 end

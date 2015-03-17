@@ -15,4 +15,8 @@ module FeatureSessionHelper
     find("a[href='/videos/#{video.id}']").click
   end
   
+  def sign_out
+    visit sign_out_path
+  end
+  
 end

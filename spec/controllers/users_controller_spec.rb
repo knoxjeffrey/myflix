@@ -18,16 +18,37 @@ describe UsersController do
   
   describe "POST create" do
     context "valid input details" do
-      before do
-        post :create, user: generate_attributes_for(:user) 
-      end
       
+      before { post :create, user: generate_attributes_for(:user) }
+
       it "creates user record" do
         expect(User.count).to eq(1)
       end
     
       it "redirects to sign_in path" do
         expect(response).to redirect_to sign_in_path
+      end
+      
+      context "when user has been invited" do
+        let(:inviter) { object_generator(:user) }
+        let(:invitation) { object_generator(:invitation, inviter: inviter) }
+        
+        before { post :create, user: { email_address: invitation.recipient_email_address, password: 'password',
+                              full_name: invitation.recipient_name}, invitation_token: invitation.token }
+        
+        it "makes the user follow the inviter" do
+          recipient = User.find_by_email_address(invitation.recipient_email_address)
+          expect(recipient.follows?(inviter)).to be true
+        end
+        
+        it "makes the inviter follow the user" do
+          recipient = User.find_by_email_address(invitation.recipient_email_address)
+          expect(inviter.follows?(recipient)).to be true
+        end
+        
+        it "expires the invitation upon creation" do
+          expect(Invitation.first.token).to be_nil
+        end
       end
     end
     
@@ -91,6 +112,33 @@ describe UsersController do
     context "with unauthenticted user do" do
       it_behaves_like "require_sign_in" do
         let(:action) { get :show, id: chosen_user }
+      end
+    end
+  end
+  
+  describe "GET new_with_invitation_token" do
+    context "with valid token" do
+      let(:invitation) { object_generator(:invitation) }
+      
+      before { get :new_invitation_with_token, token: invitation.token }
+      
+      it "renders the :new view template" do
+        expect(response).to render_template :new
+      end
+      
+      it "assigns @user with recipient email" do
+        expect(assigns(:user).email_address).to eq(invitation.recipient_email_address)
+      end
+      
+      it "sets @invitation_token" do
+        expect(assigns(:invitation_token)).to eq(invitation.token)
+      end
+    end
+    
+    context "with invalid token" do
+      it "redirects to expired token path" do
+        get :new_invitation_with_token, token: 'not valid'
+        expect(response).to redirect_to expired_token_path
       end
     end
   end

@@ -20,12 +20,11 @@ Myflix::Application.configure do
   
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => "mail.tamars.co.uk",
+    :address              => "smtp.mandrillapp.com",
     :port                 => 587,
-    :enable_starttls_auto => false,
-    :user_name            => ENV['MAIL_USERNAME'],
-    :password             => ENV['MAIL_PASSWORD'],
-    :domain               => 'tamars.co.uk',
+    :user_name            => ENV['MANDRILL_USERNAME'],
+    :password             => ENV['MANDRILL_APIKEY'],
+    :domain               => 'heroku.com',
     :authentication       => 'plain'
   }
   config.action_mailer.default_url_options = { host: 'http://knoxjeffrey-myflix.herokuapp.com/' }

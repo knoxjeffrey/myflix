@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
     self.friendships.exists?(friend: another_user)
   end
   
+  def follow(another_user)
+    Friendship.create(user: self, friend: another_user) unless self.cannot_follow?(another_user)
+  end
+  
   def cannot_follow?(another_user)
     self == another_user || (self.follows?(another_user))
   end
