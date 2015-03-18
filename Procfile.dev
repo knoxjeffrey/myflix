@@ -1,0 +1,4 @@
+web: bundle exec puma -C config/puma.rb -p 3000
+devlog: tail -f log/development.log
+worker: redis-server
+worker: sidekiq

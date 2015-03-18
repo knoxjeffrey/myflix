@@ -11,6 +11,9 @@ gem 'jquery-rails'
 gem 'pg'
 gem 'bcrypt'
 gem "figaro"
+gem 'sidekiq'
+gem 'sinatra', :require => nil
+gem 'puma'
 
 group :development do
   gem 'thin'
