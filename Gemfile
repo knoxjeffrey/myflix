@@ -40,7 +40,7 @@ group :test do
   gem 'capybara-email'
 end
 
-group :production do
+group :production, :staging  do
   gem 'rails_12factor'
   gem "sentry-raven"
 end
