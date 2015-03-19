@@ -14,6 +14,8 @@ gem "figaro"
 gem 'sidekiq'
 gem 'sinatra', :require => nil
 gem 'puma'
+gem 'paratrooper'
+
 
 group :development do
   gem 'thin'
@@ -40,4 +42,5 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem "sentry-raven"
 end

@@ -20,12 +20,13 @@ Myflix::Application.configure do
   
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.mandrillapp.com",
-    :port                 => 587,
-    :user_name            => ENV['MANDRILL_USERNAME'],
-    :password             => ENV['MANDRILL_APIKEY'],
-    :domain               => 'heroku.com',
-    :authentication       => 'plain'
+    :user_name => '31773d4436eedb8c0',
+    :password => 'cd80bb5f3b1f32',
+    :address => 'mailtrap.io',
+    :domain => 'mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
   }
-  config.action_mailer.default_url_options = { host: 'http://knoxjeffrey-myflix.herokuapp.com/' }
+  
+  config.action_mailer.default_url_options = { host: 'http://knoxjeffrey-myflix-staging.herokuapp.com/' }
 end
