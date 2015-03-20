@@ -1,0 +1,44 @@
+%section.admin_add_video
+  .container
+    .row
+      .col-md-10.col-md-offset-1.form-horizontal
+        = horizontal_form_for [:admin, @video] do |f|
+          %ul.nav.nav-tabs
+            %li
+              %a(href="/ui/admin_views_payments") Recent Payments
+            %li.active
+              = link_to "Add a New Video", admin_add_video_path
+          %br
+          %fieldset
+            .form-group
+              .control-label.col-sm-3
+                = f.label :title
+              .col-sm-3
+                = f.text_field :title, class: 'form-control'
+              
+            .form-group
+              .control-label.col-sm-3
+                = f.label :category_id
+              .col-sm-6
+                = f.select :category_id, options_for_select(Category.all.map { |category| [category.name, category.id] }), {}, { class: 'form-control' }
+              
+            .form-group
+              .control-label.col-sm-3
+                = f.label :description
+              .col-sm-6
+                = f.text_area :description, rows: 8, class: 'form-control'
+                
+            .form-group
+              %label.control-label.col-sm-3 Large Cover
+              .col-sm-6
+                %col.btn.btn-file
+                  %input.form-control(type="file")
+            .form-group
+              %label.control-label.col-sm-3 Small Cover
+              .col-sm-6
+                %col.btn.btn-file
+                  %input.form-control(type="file")
+
+          %fieldset.actions.form-group
+            .col-sm-6.col-md-offset-3
+              %input(type="submit" value="Add Video" class="btn btn-default")
