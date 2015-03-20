@@ -7,7 +7,7 @@ deployment:
     branch: master
     commands:
       - heroku maintenance:on --app knoxjeffrey-myflix
-      - heroku pgbackups:capture --app knoxjeffrey-myflix
+      - heroku pg:backups capture --app knoxjeffrey-myflix
       - git push git@heroku.com:knoxjeffrey-myflix.git $CIRCLE_SHA1:refs/heads/master
       - heroku run rake db:migrate --app knoxjeffrey-myflix
       - heroku maintenance:off --app knoxjeffrey-myflix
