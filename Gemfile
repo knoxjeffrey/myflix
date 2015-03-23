@@ -15,7 +15,10 @@ gem 'sidekiq'
 gem 'sinatra', :require => nil
 gem 'puma'
 gem 'paratrooper'
-
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog'
+gem 'fog-aws'
 
 group :development do
   gem 'thin'
