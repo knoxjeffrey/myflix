@@ -39,6 +39,12 @@
                 = f.label :small_cover, "Small Cover"
               .col-sm-6
                 = f.file_field :small_cover, class: "btn btn-file form-control"
+                
+            .form-group
+              .control-label.col-sm-3
+                = f.label :video_url, "Video URL"
+              .col-sm-6
+                = f.text_field :video_url, class: 'form-control'
 
           %fieldset.actions.form-group
             .col-sm-6.col-md-offset-3
