@@ -43,7 +43,7 @@ describe Video do
     
     it "should display a large video image if one is available" do
       video2 = object_generator(:video_upload)
-      expect(video2.display_large_video_image).to eq("/uploads/monk_large.jpg")
+      expect(video2.display_large_video_image).to eq("https://knoxjeffrey-myflix-development.s3.amazonaws.com/uploads/monk_large.jpg")
     end
   
     it "should display a placeholder image if there is no large video image"  do
