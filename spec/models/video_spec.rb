@@ -50,18 +50,6 @@ describe Video do
       video = object_generator(:video)
       expect(video.display_large_video_image ).to eq("http://dummyimage.com/665x375/000/fff.png&text=No+Preview+Available")
     end
-    
-    it "should display a placeholder image if large_cover_url is an empty string" do
-      video = object_generator(:video)
-      video.large_cover = ""
-      expect(video.display_large_video_image ).to eq("http://dummyimage.com/665x375/000/fff.png&text=No+Preview+Available")
-    end
-    
-    it "should display a placeholder image if the large_cover_url path does not exist" do
-      video = object_generator(:video)
-      video.large_cover = "/tmp/monk_large2.jpg"
-      expect(video.display_large_video_image ).to eq("http://dummyimage.com/665x375/000/fff.png&text=No+Preview+Available")
-    end
   
   end
   

@@ -7,17 +7,16 @@ feature 'admin adds video' do
     admin_user = object_generator(:admin)
     
     sign_in_user(admin_user)
-    add_video
+    upload_video
     
     sign_out
     sign_in_user
     
-    visit video_path(Video.first)
-    expect(page).to have_selector("img[src='https://knoxjeffrey-myflix-development.s3.amazonaws.com/uploads/monk_large.jpg']")
-    expect(page).to have_selector("a[href='http://www.test.com']")
+    validate_uploaded_video
+    
   end
   
-  def add_video
+  def upload_video
     category1 = object_generator(:category)
     
     click_link "Add Video"
@@ -29,5 +28,11 @@ feature 'admin adds video' do
     attach_file "Small Cover", "spec/support/uploads/monk.jpg"
     fill_in "Video URL", with: "http://www.test.com"
     click_button "Add Video"
+  end
+  
+  def validate_uploaded_video
+    visit video_path(Video.first)
+    expect(page).to have_selector("img[src='https://knoxjeffrey-myflix-development.s3.amazonaws.com/uploads/monk_large.jpg']")
+    expect(page).to have_selector("a[href='http://www.test.com']")
   end
 end
