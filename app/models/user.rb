@@ -43,4 +43,8 @@ class User < ActiveRecord::Base
   def remove_token!
     self.update_column(:token, nil)
   end
+  
+  def is_admin?
+    self.admin
+  end
 end
