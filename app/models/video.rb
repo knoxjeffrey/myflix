@@ -17,8 +17,7 @@ class Video < ActiveRecord::Base
     video_title.present? ? where("title ILIKE ?", "%#{video_title}%").order(created_at: :desc) : []
   end
   
-  # If large_cover_url has a non empty string and the file name exists then show the image
-  # else show a placeholder image
+  # If large_cover is present then test if it actually exists. If so then display image, in all other cases disply dummy image
   def display_large_video_image
     if self.large_cover.present?
       self.large_cover.file.exists? ? self.large_cover_url : "http://dummyimage.com/665x375/000/fff.png&text=No+Preview+Available"
