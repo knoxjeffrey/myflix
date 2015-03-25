@@ -11,44 +11,52 @@ Category.create(name: "TV Dramas")
 
 Video.create(title: "Monk",
             description: "Adrian Monk is a brilliant San Francisco detective, whose obsessive compulsive disorder just happens to get in the way.",
-            small_cover_url: "/tmp/monk.jpg",
-            large_cover_url: "/tmp/monk_large.jpg",
-            category_id: 2)
+            small_cover: open("public/tmp/monk.jpg"),
+            large_cover: open("public/tmp/monk_large.jpg"),
+            category_id: 2,
+            video_url: "https://www.youtube.com/watch?v=RYDN5_pZZ9c&list=UUeNJ0zL2Mb-zNjZEm2KD0vg")
             
 Video.create(title: "Family Guy",
             description: "Sick, twisted and politically incorrect, the animated series features the adventures of the Griffin family.",
-            small_cover_url: "/tmp/family_guy.jpg",
-            category_id: 1)
+            small_cover: open("public/tmp/family_guy.jpg"),
+            category_id: 1,
+            video_url: "https://www.youtube.com/watch?v=4072wpCuHv4&index=12&list=UUeNJ0zL2Mb-zNjZEm2KD0vg")
             
 Video.create(title: "Futurama",
             description: "Accidentally frozen, pizza-deliverer Fry wakes up 1,000 years in the future.",
-            small_cover_url: "/tmp/futurama.jpg",
-            category_id: 1)
+            small_cover: open("public/tmp/futurama.jpg"),
+            category_id: 1,
+            video_url: "https://www.youtube.com/watch?v=QWfGinw6GUE&index=15&list=UUeNJ0zL2Mb-zNjZEm2KD0vg")
             
 Video.create(title: "South Park",
             description: "Watch Cartman, Kenny, Stan and Kyle in all their foul-mouthed adventures!",
-            small_cover_url: "/tmp/south_park.jpg",
-            category_id: 1)
+            small_cover: open("public/tmp/south_park.jpg"),
+            category_id: 1,
+            video_url: "https://www.youtube.com/watch?v=xdxORsHKaSc&list=UUeNJ0zL2Mb-zNjZEm2KD0vg&index=13")
             
 Video.create(title: "Family Guy",
             description: "Sick, twisted and politically incorrect, the animated series features the adventures of the Griffin family.",
-            small_cover_url: "/tmp/family_guy.jpg",
-            category_id: 1)
+            small_cover: open("public/tmp/family_guy.jpg"),
+            category_id: 1,
+            video_url: "https://www.youtube.com/watch?v=RYDN5_pZZ9c&list=UUeNJ0zL2Mb-zNjZEm2KD0vg")
 
 Video.create(title: "Futurama",
             description: "Accidentally frozen, pizza-deliverer Fry wakes up 1,000 years in the future.",
-            small_cover_url: "/tmp/futurama.jpg",
-            category_id: 1)
+            small_cover: open("public/tmp/futurama.jpg"),
+            category_id: 1,
+            video_url: "https://www.youtube.com/watch?v=4072wpCuHv4&index=12&list=UUeNJ0zL2Mb-zNjZEm2KD0vg")
 
 Video.create(title: "South Park",
             description: "Watch Cartman, Kenny, Stan and Kyle in all their foul-mouthed adventures!",
-            small_cover_url: "/tmp/south_park.jpg",
-            category_id: 1)
+            small_cover: open("public/tmp/south_park.jpg"),
+            category_id: 1,
+            video_url: "https://www.youtube.com/watch?v=QWfGinw6GUE&index=15&list=UUeNJ0zL2Mb-zNjZEm2KD0vg")
             
 Video.create(title: "Futurama",
             description: "Accidentally frozen, pizza-deliverer Fry wakes up 1,000 years in the future.",
-            small_cover_url: "/tmp/futurama.jpg",
-            category_id: 1)
+            small_cover: open("public/tmp/futurama.jpg"),
+            category_id: 1,
+            video_url: "https://www.youtube.com/watch?v=xdxORsHKaSc&list=UUeNJ0zL2Mb-zNjZEm2KD0vg&index=13")
 
 User.create(email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: "Jeff Knox")
 User.create(email_address: 'knoxjeffrey@hotmail.com', password: 'password', full_name: "Hazel Knox")
