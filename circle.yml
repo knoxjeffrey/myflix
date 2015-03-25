@@ -6,6 +6,7 @@ deployment:
   production:
     branch: master
     commands:
+      - figaro heroku:set -e production
       - heroku maintenance:on --app knoxjeffrey-myflix
       - heroku pg:backups capture --app knoxjeffrey-myflix
       - git push git@heroku.com:knoxjeffrey-myflix.git $CIRCLE_SHA1:refs/heads/master
@@ -14,6 +15,7 @@ deployment:
   staging:
     branch: staging
     commands:
+      - figaro heroku:set -e staging
       - heroku maintenance:on --app knoxjeffrey-myflix-staging
       - git push git@heroku.com:knoxjeffrey-myflix-staging.git $CIRCLE_SHA1:refs/heads/master
       - heroku run rake db:migrate --app knoxjeffrey-myflix-staging
