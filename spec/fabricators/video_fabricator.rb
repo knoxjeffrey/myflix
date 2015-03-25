@@ -4,5 +4,7 @@ Fabricator(:video) do
 end
 
 Fabricator(:video_upload, from: :video) do
-  large_cover { Rack::Test::UploadedFile.new("./spec/support/uploads/monk_large.jpg") }
+  large_cover { File.open("./spec/support/uploads/monk_large.jpg") }
+  #large_cover { Rack::Test::UploadedFile.new("./spec/support/uploads/monk_large.jpg") }
 end
+

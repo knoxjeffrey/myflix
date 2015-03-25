@@ -32,7 +32,7 @@ feature 'admin adds video' do
   
   def validate_uploaded_video
     visit video_path(Video.first)
-    expect(page).to have_selector("img[src='https://knoxjeffrey-myflix-development.s3.amazonaws.com/uploads/monk_large.jpg']")
+    expect(page).to have_selector("img[src='https://knoxjeffrey-myflix-development.s3-eu-west-1.amazonaws.com/uploads/monk_large.jpg']")
     expect(page).to have_selector("a[href='http://www.test.com']")
   end
 end

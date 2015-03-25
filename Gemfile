@@ -17,8 +17,7 @@ gem 'puma'
 gem 'paratrooper'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'fog'
-gem 'fog-aws'
+gem 'carrierwave-aws'
 
 group :development do
   gem 'thin'
