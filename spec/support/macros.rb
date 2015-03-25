@@ -3,6 +3,11 @@ def set_current_user_session
   session[:user_id] = valid_user.id
 end
 
+def set_current_admin_session
+  valid_user = object_generator(:admin)
+  session[:user_id] = valid_user.id
+end
+
 def current_user
   User.find(session[:user_id])
 end

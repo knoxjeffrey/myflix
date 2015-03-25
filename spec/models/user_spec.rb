@@ -87,4 +87,17 @@ describe User do
     end
     
   end
+  
+  describe :is_admin? do
+    
+    it "returns true if user is admin" do
+      user = object_generator(:admin)
+      expect(user.is_admin?).to be true
+    end
+    
+    it "returns false if user is not admin" do
+      user = object_generator(:user)
+      expect(user.is_admin?).to be false
+    end
+  end
 end

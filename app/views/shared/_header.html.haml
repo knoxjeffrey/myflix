@@ -6,6 +6,7 @@
       %li= link_to "Videos", home_path
       %li= link_to "My Queue", my_queue_path
       %li= link_to "People", people_path
+      
     = form_tag search_videos_path, method: 'get', class: "col-md-5 navbar-form" do
       .form-group
         = text_field_tag :video_title, nil, class: "form-control", placeholder: "Search for videos here"
@@ -22,4 +23,6 @@
               = link_to "Invite A Friend", invite_friend_path
               %a(href="#") Account
               %a(href="#") Plan and Billing
+              - if current_user.is_admin?
+                = link_to "Add Video", admin_add_video_path
               %a(href="/sign_out") Sign Out
