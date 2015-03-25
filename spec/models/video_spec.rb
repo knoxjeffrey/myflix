@@ -41,26 +41,14 @@ describe Video do
   
   describe :display_large_video_image do
     
-    let(:video) { object_generator(:video, small_cover_url: "/tmp/monk.jpg") }
-    subject { video.display_large_video_image }
-    
     it "should display a large video image if one is available" do
-      video.large_cover_url = "/tmp/monk_large.jpg"
-      expect(subject).to eq("/tmp/monk_large.jpg")
+      video2 = object_generator(:video_upload)
+      expect(video2.display_large_video_image).to eq("https://knoxjeffrey-myflix-development.s3-eu-west-1.amazonaws.com/uploads/monk_large.jpg")
     end
   
     it "should display a placeholder image if there is no large video image"  do
-      expect(subject).to eq("http://dummyimage.com/665x375/000/fff.png&text=No+Preview+Available")
-    end
-    
-    it "should display a placeholder image if large_cover_url is an empty string" do
-      video.large_cover_url = ""
-      expect(subject).to eq("http://dummyimage.com/665x375/000/fff.png&text=No+Preview+Available")
-    end
-    
-    it "should display a placeholder image if the large_cover_url path does not exist" do
-      video.large_cover_url = "/tmp/monk_large2.jpg"
-      expect(subject).to eq("http://dummyimage.com/665x375/000/fff.png&text=No+Preview+Available")
+      video = object_generator(:video)
+      expect(video.display_large_video_image ).to eq("http://dummyimage.com/665x375/000/fff.png&text=No+Preview+Available")
     end
   
   end
