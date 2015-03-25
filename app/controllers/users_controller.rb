@@ -12,6 +12,15 @@ class UsersController < ApplicationController
     
     if @user.save
       check_for_invitation
+      
+      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+      Stripe::Charge.create(
+        amount: 999,
+        currency: "gbp",
+        source: params[:stripeToken],
+        description: "Sign up charge for #{@user.email_address}"
+      )
+      
       AppMailer.delay.notify_on_user_signup(@user)
       redirect_to sign_in_path
     else

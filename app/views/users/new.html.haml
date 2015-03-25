@@ -27,4 +27,5 @@
         
         %fieldset.actions.control-group.col-sm-offset-2
           .controls
+            %script.stripe-button{"data-amount" => "999", "data-currency" => "gbp", "data-description" => "Movies At Any Time!", "data-key" => "#{ENV['STRIPE_PUBLISHABLE_KEY']}", "data-name" => "MyFLiX", "data-label" => "Pay And Sign Up", :src => "https://checkout.stripe.com/checkout.js"}
             = f.submit "Sign Up", class: "btn btn-default"

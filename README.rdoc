@@ -1,3 +1,5 @@
+{<img src="https://circleci.com/gh/knoxjeffrey/myflix/tree/master.svg?style=svg&circle-token=68b6c9c94ce920f084f51bc237a89ad2633727fa" alt="Circle CI" />}[https://circleci.com/gh/knoxjeffrey/myflix/tree/master]
+
 == Welcome to Rails
 
 Rails is a web-application framework that includes everything needed to create
