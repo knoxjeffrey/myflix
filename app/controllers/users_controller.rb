@@ -8,25 +8,27 @@ class UsersController < ApplicationController
   end
   
   def create
+    rollback = false
     @user = User.new(user_params)
     
-    if @user.save
-      check_for_invitation
-      
-      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-      Stripe::Charge.create(
-        amount: 999,
-        currency: "gbp",
-        source: params[:stripeToken],
-        description: "Sign up charge for #{@user.email_address}"
-      )
-      
-      AppMailer.delay.notify_on_user_signup(@user)
-      redirect_to sign_in_path
-    else
-      render :new
+    ActiveRecord::Base.transaction do
+      if @user.save
+        check_for_invitation
+        
+        if process_payment
+          send_email
+          redirect_to sign_in_path
+        else
+          rollback = true
+          raise ActiveRecord::Rollback
+        end
+        
+      else
+        render :new
+      end
     end
-  end 
+    redirect_to register_path if rollback
+end 
   
   def show
     @user = User.find(params[:id])
@@ -60,6 +62,25 @@ class UsersController < ApplicationController
     @user.follow(invitation.inviter)
     invitation.inviter.follow(@user)
     invitation.clear_token_column
+  end
+  
+  def process_payment
+    begin
+      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+      Stripe::Charge.create(
+        amount: 999,
+        currency: "gbp",
+        source: params[:stripeToken],
+        description: "Sign up charge for #{@user.email_address}"
+      ) 
+    rescue Stripe::CardError => e
+      flash[:danger] = e.message
+      return false
+    end  
+  end
+  
+  def send_email
+    AppMailer.delay.notify_on_user_signup(@user)
   end
   
 end
