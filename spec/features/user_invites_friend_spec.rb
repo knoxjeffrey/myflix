@@ -48,13 +48,11 @@ feature "user invites friend" do
   
   def friend_signs_up
     StripeMock.start
-    #StripeMock.start_client
     fill_in_password
     fill_in 'Full Name', with: friend_name
     fill_in 'stripe_number', with: '4242424242424242'
     fill_in 'stripe_cvc', with: '123'
     click_button "Sign Up"
-    #StripeMock.stop_client
     StripeMock.stop
   end
   

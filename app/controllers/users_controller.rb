@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       end
     end
     redirect_to register_path if rollback
-end 
+  end 
   
   def show
     @user = User.find(params[:id])
