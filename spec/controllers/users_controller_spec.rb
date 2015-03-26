@@ -19,8 +19,13 @@ describe UsersController do
   describe "POST create" do
     context "valid input details" do
       
-      before { post :create, user: generate_attributes_for(:user) }
-
+      let(:stripe_helper) { StripeMock.create_test_helper }
+      before do
+        StripeMock.start
+        post :create, user: generate_attributes_for(:user), stripeToken: stripe_helper.generate_card_token 
+      end
+      after { StripeMock.stop }
+        
       it "creates user record" do
         expect(User.count).to eq(1)
       end
@@ -71,8 +76,15 @@ describe UsersController do
     context "sending emails" do
       context "valid input details" do
         
-        before { post :create, user: { email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: 'Jeff Knox' } }
-        after { ActionMailer::Base.deliveries.clear }
+        let(:stripe_helper) { StripeMock.create_test_helper }
+        before do 
+          StripeMock.start
+          post :create, user: { email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: 'Jeff Knox' }, stripeToken: stripe_helper.generate_card_token 
+        end
+        after do
+          ActionMailer::Base.deliveries.clear
+          StripeMock.stop
+        end
         
         it "sends out the email" do
           expect(ActionMailer::Base.deliveries.last.to).to eq(['knoxjeffrey@outlook.com'])

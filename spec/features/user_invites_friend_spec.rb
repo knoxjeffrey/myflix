@@ -9,7 +9,7 @@ feature "user invites friend" do
     
     open_email(friend_email)
     click_accept_invitation
-    
+  
     friend_signs_up
     expect_to_be_on_sign_in_path
     friend_signs_in
@@ -47,9 +47,15 @@ feature "user invites friend" do
   end
   
   def friend_signs_up
+    StripeMock.start
+    #StripeMock.start_client
     fill_in_password
     fill_in 'Full Name', with: friend_name
+    fill_in 'stripe_number', with: '4242424242424242'
+    fill_in 'stripe_cvc', with: '123'
     click_button "Sign Up"
+    #StripeMock.stop_client
+    StripeMock.stop
   end
   
   def friend_signs_in

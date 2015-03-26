@@ -42,6 +42,7 @@ group :test do
   gem "capybara-webkit"
   gem 'launchy', '~> 2.4.3'
   gem 'capybara-email'
+  gem 'stripe-ruby-mock', :require => 'stripe_mock'
 end
 
 group :production, :staging  do
