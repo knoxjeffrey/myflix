@@ -7,6 +7,7 @@ describe ForgotPasswordsController do
       
       let(:valid_user) { object_generator(:user, email_address: 'knoxjeffrey@outlook.com') }
       before { post :create, email_address: valid_user.email_address }
+      after { ActionMailer::Base.deliveries.clear }
       
       it "redirects to the forgot password confirmation page" do 
         expect(response).to redirect_to forgot_password_confirmation_path
