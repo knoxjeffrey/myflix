@@ -65,7 +65,7 @@ class UsersController < ApplicationController
   end
   
   def process_payment
-    ProcessStripePayment.new(self, @user.email_address, params[:stripeToken]).charge_card
+    ProcessStripePayment.new(self, '999', @user.email_address, params[:stripeToken]).charge_card
   end
   
   def send_email

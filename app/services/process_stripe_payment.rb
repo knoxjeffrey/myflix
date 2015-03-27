@@ -1,8 +1,9 @@
 class ProcessStripePayment
-  attr_reader :controller, :email, :token
+  attr_reader :controller, :amount, :email, :token
   
-  def initialize(controller, email, token)
+  def initialize(controller, amount, email, token)
     @controller = controller
+    @amount = amount
     @email = email
     @token = token
   end
@@ -11,7 +12,7 @@ class ProcessStripePayment
     begin
       Stripe.api_key = ENV['STRIPE_SECRET_KEY']
       Stripe::Charge.create(
-        amount: 999,
+        amount: amount,
         currency: "gbp",
         source: token,
         description: "Sign up charge for #{email}"
