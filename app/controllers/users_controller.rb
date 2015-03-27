@@ -65,22 +65,11 @@ class UsersController < ApplicationController
   end
   
   def process_payment
-    begin
-      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-      Stripe::Charge.create(
-        amount: 999,
-        currency: "gbp",
-        source: params[:stripeToken],
-        description: "Sign up charge for #{@user.email_address}"
-      ) 
-    rescue Stripe::CardError => e
-      flash[:danger] = e.message
-      return false
-    end  
+    ProcessStripePayment.new(self, @user.email_address, params[:stripeToken]).charge_card
   end
   
   def send_email
     AppMailer.delay.notify_on_user_signup(@user)
   end
-  
+
 end
