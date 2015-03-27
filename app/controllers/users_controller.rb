@@ -15,10 +15,13 @@ class UsersController < ApplicationController
       if @user.save
         check_for_invitation
         
-        if process_payment
+        #take advantage of returning multiple values from process_payment
+        payment_completed, message = process_payment
+        if payment_completed
           send_email
           redirect_to sign_in_path
         else
+          flash[:danger] = message
           rollback = true
           raise ActiveRecord::Rollback
         end
@@ -65,7 +68,7 @@ class UsersController < ApplicationController
   end
   
   def process_payment
-    ProcessStripePayment.new(self, '999', @user.email_address, params[:stripeToken]).charge_card
+    ProcessStripePayment.new('999', @user.email_address, params[:stripeToken]).charge_card
   end
   
   def send_email

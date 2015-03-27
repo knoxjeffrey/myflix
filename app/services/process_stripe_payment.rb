@@ -1,8 +1,7 @@
 class ProcessStripePayment
-  attr_reader :controller, :amount, :email, :token
+  attr_reader :amount, :email, :token
   
-  def initialize(controller, amount, email, token)
-    @controller = controller
+  def initialize(amount, email, token)
     @amount = amount
     @email = email
     @token = token
@@ -18,8 +17,7 @@ class ProcessStripePayment
         description: "Charge for #{email}"
       ) 
     rescue Stripe::CardError => e
-      controller.flash[:danger] = e.message
-      return false
+      return [false, e.message]
     end  
   end
 end
