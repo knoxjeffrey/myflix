@@ -15,7 +15,7 @@ class ProcessStripePayment
         amount: amount,
         currency: "gbp",
         source: token,
-        description: "Sign up charge for #{email}"
+        description: "Charge for #{email}"
       ) 
     rescue Stripe::CardError => e
       controller.flash[:danger] = e.message
