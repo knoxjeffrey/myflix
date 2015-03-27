@@ -8,15 +8,30 @@ class UsersController < ApplicationController
   end
   
   def create
+    rollback = false
     @user = User.new(user_params)
     
-    if @user.save
-      check_for_invitation
-      AppMailer.delay.notify_on_user_signup(@user)
-      redirect_to sign_in_path
-    else
-      render :new
+    ActiveRecord::Base.transaction do
+      if @user.save
+        check_for_invitation
+        
+        #take advantage of returning multiple values from process_payment
+        payment_completed, message = process_payment
+        
+        if payment_completed
+          send_email
+          redirect_to sign_in_path
+        else
+          flash[:danger] = message
+          rollback = true
+          raise ActiveRecord::Rollback
+        end
+        
+      else
+        render :new
+      end
     end
+    redirect_to register_path if rollback
   end 
   
   def show
@@ -53,4 +68,12 @@ class UsersController < ApplicationController
     invitation.clear_token_column
   end
   
+  def process_payment
+    ProcessStripePayment.new('999', @user.email_address, params[:stripeToken]).charge_card
+  end
+  
+  def send_email
+    AppMailer.delay.notify_on_user_signup(@user)
+  end
+
 end
