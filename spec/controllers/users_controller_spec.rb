@@ -24,7 +24,10 @@ describe UsersController do
         StripeMock.start
         post :create, user: generate_attributes_for(:user), stripeToken: stripe_helper.generate_card_token 
       end
-      after { StripeMock.stop }
+      after do
+        StripeMock.stop 
+        ActionMailer::Base.deliveries.clear
+      end
         
       it "creates user record" do
         expect(User.count).to eq(1)
