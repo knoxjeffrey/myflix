@@ -17,6 +17,7 @@ class UsersController < ApplicationController
         
         #take advantage of returning multiple values from process_payment
         payment_completed, message = process_payment
+        
         if payment_completed
           send_email
           redirect_to sign_in_path
