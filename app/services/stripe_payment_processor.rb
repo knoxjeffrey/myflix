@@ -1,7 +1,7 @@
 class StripePaymentProcessor
   
   attr_reader :amount, :email, :token
-  attr_accessor :error_message, :payment_completed
+  attr_accessor :error_message, :is_successful
 
   def initialize(amount, email, token)
     @amount = amount
@@ -18,15 +18,11 @@ class StripePaymentProcessor
       source: token,
       description: "Charge for #{email}"
       )
-      self.payment_completed = true
+      self.is_successful = true
     rescue Stripe::CardError => e
       self.error_message = e.message
     end 
     self
-  end
-  
-  def successful?
-    payment_completed == true
   end
   
 end

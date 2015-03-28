@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
       if @user.save
         check_for_invitation
-        if process_payment.successful?
+        if process_payment.is_successful
           send_email
           redirect_to sign_in_path and return
         else
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
         render :new and return
       end
     end
-    redirect_to register_path if !process_payment.successful?
+    redirect_to register_path if !process_payment.is_successful
   end 
   
   def show
