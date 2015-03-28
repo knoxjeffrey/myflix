@@ -8,30 +8,22 @@ class UsersController < ApplicationController
   end
   
   def create
-    rollback = false
-    @user = User.new(user_params)
-    
     ActiveRecord::Base.transaction do
+      @user = User.new(user_params)
       if @user.save
         check_for_invitation
-        
-        #take advantage of returning multiple values from process_payment
-        payment_completed, message = process_payment
-        
-        if payment_completed
+        if process_payment.successful?
           send_email
-          redirect_to sign_in_path
+          redirect_to sign_in_path and return
         else
-          flash[:danger] = message
-          rollback = true
-          raise ActiveRecord::Rollback
+          flash[:danger] = process_payment.error_message
+          raise ActiveRecord::Rollback #jumps to end of transaction
         end
-        
       else
-        render :new
+        render :new and return
       end
     end
-    redirect_to register_path if rollback
+    redirect_to register_path if !process_payment.successful?
   end 
   
   def show
@@ -67,9 +59,13 @@ class UsersController < ApplicationController
     invitation.inviter.follow(@user)
     invitation.clear_token_column
   end
+
+  def payment_processor
+    StripePaymentProcessor.new('999', @user.email_address, params[:stripeToken])
+  end
   
   def process_payment
-    ProcessStripePayment.new('999', @user.email_address, params[:stripeToken]).charge_card
+    payment_processor.charge_card
   end
   
   def send_email
