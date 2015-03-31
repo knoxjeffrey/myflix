@@ -15,3 +15,14 @@ end
 def clear_current_user
   session[:user_id] = nil
 end
+
+def create_external_payment_provider_token(card_number)
+  token = Stripe::Token.create(
+            :card => {
+              :number => card_number,
+              :exp_month => 3,
+              :exp_year => Time.now.year,
+              :cvc => "123"
+            },
+          ).id
+end

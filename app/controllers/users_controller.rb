@@ -8,22 +8,21 @@ class UsersController < ApplicationController
   end
   
   def create
-    ActiveRecord::Base.transaction do
-      @user = User.new(user_params)
-      if @user.save
-        check_for_invitation
-        if process_payment.is_successful
-          send_email
-          redirect_to sign_in_path and return
-        else
-          flash[:danger] = process_payment.error_message
-          raise ActiveRecord::Rollback #jumps to end of transaction
-        end
+    @user = User.new(user_params)
+    if @user.valid?
+      check_for_invitation
+      attempt_card_payment = payment_processor
+      if attempt_card_payment.processed
+        @user.save
+        send_email
+        redirect_to sign_in_path
       else
-        render :new and return
+        flash[:danger] = attempt_card_payment.error
+        redirect_to register_path
       end
+    else
+      render :new
     end
-    redirect_to register_path if !process_payment.is_successful
   end 
   
   def show
@@ -61,11 +60,11 @@ class UsersController < ApplicationController
   end
 
   def payment_processor
-    StripePaymentProcessor.new('999', @user.email_address, params[:stripeToken])
-  end
-  
-  def process_payment
-    payment_processor.charge_card
+    ExternalPaymentProcessor.charge({
+      amount: 999,
+      email: @user.email_address,
+      token: params[:stripeToken]
+    })
   end
   
   def send_email

@@ -17,50 +17,85 @@ describe UsersController do
   end
   
   describe "POST create" do
-    context "valid input details" do
+    context "valid personal details" do
       
-      let(:stripe_helper) { StripeMock.create_test_helper }
-      before do
-        StripeMock.start
-        post :create, user: generate_attributes_for(:user), stripeToken: stripe_helper.generate_card_token 
-      end
-      after do
-        StripeMock.stop 
-        ActionMailer::Base.deliveries.clear
-      end
-        
-      it "creates user record" do
-        expect(User.count).to eq(1)
-      end
+      context "valid card details" do
+      
+        let(:attempt_card_payment) { double(:attempt_card_payment) }
+        #let(:stripe_helper) { StripeMock.create_test_helper }
+        before do
+          #StripeMock.start
+          attempt_card_payment.should_receive(:processed).and_return(true)
+          ExternalPaymentProcessor.stub(:charge).and_return(attempt_card_payment) 
+        end
+        after do
+          #StripeMock.stop 
+          ActionMailer::Base.deliveries.clear
+        end
+
+        it "creates user record" do
+          post :create, user: generate_attributes_for(:user), stripeToken: '123'
+          expect(User.count).to eq(1)
+        end
     
-      it "redirects to sign_in path" do
-        expect(response).to redirect_to sign_in_path
+        it "redirects to sign_in path" do
+          post :create, user: generate_attributes_for(:user), stripeToken: '123'
+          expect(response).to redirect_to sign_in_path
+        end
+      
+        context "when user has been invited" do
+          let(:inviter) { object_generator(:user) }
+          let(:invitation) { object_generator(:invitation, inviter: inviter) }
+        
+          before { post :create, user: { email_address: invitation.recipient_email_address, password: 'password',
+                                full_name: invitation.recipient_name}, invitation_token: invitation.token }
+        
+          it "makes the user follow the inviter" do
+            recipient = User.find_by_email_address(invitation.recipient_email_address)
+            expect(recipient.follows?(inviter)).to be true
+          end
+        
+          it "makes the inviter follow the user" do
+            recipient = User.find_by_email_address(invitation.recipient_email_address)
+            expect(inviter.follows?(recipient)).to be true
+          end
+        
+          it "expires the invitation upon creation" do
+            expect(Invitation.first.token).to be_nil
+          end
+        end
       end
       
-      context "when user has been invited" do
-        let(:inviter) { object_generator(:user) }
-        let(:invitation) { object_generator(:invitation, inviter: inviter) }
-        
-        before { post :create, user: { email_address: invitation.recipient_email_address, password: 'password',
-                              full_name: invitation.recipient_name}, invitation_token: invitation.token }
-        
-        it "makes the user follow the inviter" do
-          recipient = User.find_by_email_address(invitation.recipient_email_address)
-          expect(recipient.follows?(inviter)).to be true
+      context "invalid card details" do
+        let(:attempt_card_payment) { double(:attempt_card_payment) }
+        before do
+          attempt_card_payment.should_receive(:processed).and_return(false)
+          attempt_card_payment.should_receive(:error).and_return("error")
+          ExternalPaymentProcessor.stub(:charge).and_return(attempt_card_payment)
+          
+          post :create, user: generate_attributes_for(:user), stripeToken: '123' 
+        end
+        after do
+          ActionMailer::Base.deliveries.clear
         end
         
-        it "makes the inviter follow the user" do
-          recipient = User.find_by_email_address(invitation.recipient_email_address)
-          expect(inviter.follows?(recipient)).to be true
+        it "does not create a user" do
+          expect(User.count).to eq(0)
         end
         
-        it "expires the invitation upon creation" do
-          expect(Invitation.first.token).to be_nil
+        it "redirects to register_path" do
+          expect(response).to redirect_to register_path
+        end
+        
+        it "generates a flash danger message" do
+          expect(flash[:danger]).to be_present
         end
       end
+      
     end
     
-    context "invalid input details" do
+    context "invalid personal details" do
+      let(:attempt_card_payment) { double(:attempt_card_payment) }
       before { post :create, user: { email_address: 'junk' } }
       
       it "does not create user record" do
@@ -74,19 +109,25 @@ describe UsersController do
       it "assigns @user" do
         expect(assigns(:user)).to be_instance_of(User)
       end
+      
+      it "does not charge the card" do
+        attempt_card_payment.should_not receive(:successful?)
+      end
     end
     
     context "sending emails" do
       context "valid input details" do
-        
-        let(:stripe_helper) { StripeMock.create_test_helper }
+        let(:attempt_card_payment) { double(:attempt_card_payment) }
+        #let(:stripe_helper) { StripeMock.create_test_helper }
         before do 
-          StripeMock.start
-          post :create, user: { email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: 'Jeff Knox' }, stripeToken: stripe_helper.generate_card_token 
+          attempt_card_payment.stub(:processed).and_return(true)
+          ExternalPaymentProcessor.stub(:charge).and_return(attempt_card_payment)
+          #StripeMock.start
+          post :create, user: { email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: 'Jeff Knox' }, stripeToken: '123'
         end
         after do
           ActionMailer::Base.deliveries.clear
-          StripeMock.stop
+          #StripeMock.stop
         end
         
         it "sends out the email" do
