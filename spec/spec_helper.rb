@@ -24,6 +24,7 @@ VCR.configure do |c|
 end
 
 Capybara.server_port = 52662
+Capybara.javascript_driver = :webkit
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

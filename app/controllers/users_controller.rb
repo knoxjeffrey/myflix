@@ -15,12 +15,14 @@ class UsersController < ApplicationController
       if attempt_card_payment.processed
         @user.save
         send_email
+        flash[:success] = "Thank you for registering, please sign in."
         redirect_to sign_in_path
       else
         flash[:danger] = attempt_card_payment.error
         redirect_to register_path
       end
     else
+      flash[:danger] = "Please fix the errors in this form."
       render :new
     end
   end 
