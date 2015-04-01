@@ -25,7 +25,7 @@ VCR.configure do |c|
 end
 
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: false)
+  Capybara::Poltergeist::Driver.new(app, js_errors: true)
 end
 
 Capybara.default_wait_time = 5
