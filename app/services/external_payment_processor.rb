@@ -1,5 +1,5 @@
 class ExternalPaymentProcessor
-  require "./lib/stripe_payment_processor.rb"
+  require "#{Rails.root}/lib/stripe_payment_processor.rb"
 
   attr_accessor :processed, :error
   

@@ -22,16 +22,11 @@ describe UsersController do
       context "valid card details" do
       
         let(:attempt_card_payment) { double(:attempt_card_payment) }
-        #let(:stripe_helper) { StripeMock.create_test_helper }
         before do
-          #StripeMock.start
-          attempt_card_payment.should_receive(:processed).and_return(true)
+          expect(attempt_card_payment).to receive(:processed).and_return(true)
           ExternalPaymentProcessor.stub(:create_payment_process).and_return(attempt_card_payment) 
         end
-        after do
-          #StripeMock.stop 
-          ActionMailer::Base.deliveries.clear
-        end
+        after { ActionMailer::Base.deliveries.clear }
 
         it "creates user record" do
           post :create, user: generate_attributes_for(:user), stripeToken: '123'
@@ -69,15 +64,13 @@ describe UsersController do
       context "invalid card details" do
         let(:attempt_card_payment) { double(:attempt_card_payment) }
         before do
-          attempt_card_payment.should_receive(:processed).and_return(false)
-          attempt_card_payment.should_receive(:error).and_return("error")
+          expect(attempt_card_payment).to receive(:processed).and_return(false)
+          expect(attempt_card_payment).to receive(:error).and_return("error")
           ExternalPaymentProcessor.stub(:create_payment_process).and_return(attempt_card_payment)
           
           post :create, user: generate_attributes_for(:user), stripeToken: '123' 
         end
-        after do
-          ActionMailer::Base.deliveries.clear
-        end
+        after { ActionMailer::Base.deliveries.clear }
         
         it "does not create a user" do
           expect(User.count).to eq(0)
@@ -118,17 +111,12 @@ describe UsersController do
     context "sending emails" do
       context "valid input details" do
         let(:attempt_card_payment) { double(:attempt_card_payment) }
-        #let(:stripe_helper) { StripeMock.create_test_helper }
         before do 
           attempt_card_payment.stub(:processed).and_return(true)
           ExternalPaymentProcessor.stub(:create_payment_process).and_return(attempt_card_payment)
-          #StripeMock.start
           post :create, user: { email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: 'Jeff Knox' }, stripeToken: '123'
         end
-        after do
-          ActionMailer::Base.deliveries.clear
-          #StripeMock.stop
-        end
+        after { ActionMailer::Base.deliveries.clear }
         
         it "sends out the email" do
           expect(ActionMailer::Base.deliveries.last.to).to eq(['knoxjeffrey@outlook.com'])

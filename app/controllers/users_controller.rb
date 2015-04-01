@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.valid?
       check_for_invitation
-      attempt_card_payment = payment_processor
+      attempt_card_payment = registration_payment_processor
       if attempt_card_payment.processed
         @user.save
         send_email
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
     invitation.clear_token_column
   end
 
-  def payment_processor
+  def registration_payment_processor
     ExternalPaymentProcessor.create_payment_process(
       amount: 999,
       email: @user.email_address,
