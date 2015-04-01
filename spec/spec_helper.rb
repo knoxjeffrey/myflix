@@ -23,6 +23,7 @@ VCR.configure do |c|
   c.ignore_localhost = true
 end
 
+Capybara.default_wait_time = 5
 Capybara.server_port = 52662
 Capybara.javascript_driver = :webkit
 
