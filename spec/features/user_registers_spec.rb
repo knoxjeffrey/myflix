@@ -14,7 +14,7 @@ feature "User registers", js: true, vcr: true, driver: :selenium do
       expect(page).to have_content("Thank you for registering, please sign in.")
     end
   
-    scenario "with nvalid card info" do
+    scenario "with invalid card info" do
       fill_in_valid_user_info
       fill_in_invalid_card_info
       click_sign_up
@@ -40,7 +40,7 @@ feature "User registers", js: true, vcr: true, driver: :selenium do
       expect(page).to have_content("Please fix the errors in this form.")
     end
   
-    scenario "with nvalid card info" do
+    scenario "with invalid card info" do
       fill_in_invalid_user_info
       fill_in_invalid_card_info
       click_sign_up
