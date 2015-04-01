@@ -2,17 +2,16 @@ class StripePaymentProcessor
   
   attr_reader :amount, :email, :token
   attr_accessor :error_message, :is_successful
-
-  def initialize(amount, email, token)
-    @amount = amount
-    @email = email
-    @token = token
+  
+  def initialize(options={})
+    @amount = options[:amount]
+    @email = options[:email]
+    @token = options[:token]
   end
- 
-  def charge_card
+  
+  def process_card
     begin
-      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-      Stripe::Charge.create(
+      charge = Stripe::Charge.create(
       amount: amount,
       currency: "gbp",
       source: token,
@@ -22,7 +21,6 @@ class StripePaymentProcessor
     rescue Stripe::CardError => e
       self.error_message = e.message
     end 
-    self
   end
-  
+
 end

@@ -43,6 +43,10 @@ group :test do
   gem 'launchy', '~> 2.4.3'
   gem 'capybara-email'
   gem 'stripe-ruby-mock', :require => 'stripe_mock'
+  gem 'vcr'
+  gem 'webmock'
+  gem 'selenium-webdriver'
+  gem 'poltergeist'
 end
 
 group :production, :staging  do
