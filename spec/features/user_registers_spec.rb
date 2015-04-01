@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "User registers", js: true, vcr: true, driver: :selenium do
+feature "User registers", js: true, vcr: true do
   background do 
     visit register_path 
   end
