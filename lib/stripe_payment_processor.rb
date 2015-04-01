@@ -3,10 +3,10 @@ class StripePaymentProcessor
   attr_reader :amount, :email, :token
   attr_accessor :error_message, :is_successful
   
-  def initialize(params)
-    @amount = params[:amount]
-    @email = params[:email]
-    @token = params[:token]
+  def initialize(options={})
+    @amount = options[:amount]
+    @email = options[:email]
+    @token = options[:token]
   end
   
   def process_card

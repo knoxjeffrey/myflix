@@ -62,11 +62,11 @@ class UsersController < ApplicationController
   end
 
   def payment_processor
-    ExternalPaymentProcessor.charge({
+    ExternalPaymentProcessor.create_payment_process(
       amount: 999,
       email: @user.email_address,
       token: params[:stripeToken]
-    })
+    )
   end
   
   def send_email

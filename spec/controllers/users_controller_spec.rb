@@ -26,7 +26,7 @@ describe UsersController do
         before do
           #StripeMock.start
           attempt_card_payment.should_receive(:processed).and_return(true)
-          ExternalPaymentProcessor.stub(:charge).and_return(attempt_card_payment) 
+          ExternalPaymentProcessor.stub(:create_payment_process).and_return(attempt_card_payment) 
         end
         after do
           #StripeMock.stop 
@@ -71,7 +71,7 @@ describe UsersController do
         before do
           attempt_card_payment.should_receive(:processed).and_return(false)
           attempt_card_payment.should_receive(:error).and_return("error")
-          ExternalPaymentProcessor.stub(:charge).and_return(attempt_card_payment)
+          ExternalPaymentProcessor.stub(:create_payment_process).and_return(attempt_card_payment)
           
           post :create, user: generate_attributes_for(:user), stripeToken: '123' 
         end
@@ -121,7 +121,7 @@ describe UsersController do
         #let(:stripe_helper) { StripeMock.create_test_helper }
         before do 
           attempt_card_payment.stub(:processed).and_return(true)
-          ExternalPaymentProcessor.stub(:charge).and_return(attempt_card_payment)
+          ExternalPaymentProcessor.stub(:create_payment_process).and_return(attempt_card_payment)
           #StripeMock.start
           post :create, user: { email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: 'Jeff Knox' }, stripeToken: '123'
         end
