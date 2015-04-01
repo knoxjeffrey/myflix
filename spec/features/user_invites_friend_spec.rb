@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "user invites friend" do
-  scenario "user successfully invites friend and is accepted", js: true, vcr: true, driver: :selenium do
+  scenario "user successfully invites friend and is accepted", js: true, vcr: true do
     inviter = object_generator(:user)
     
     sign_in_user(inviter)

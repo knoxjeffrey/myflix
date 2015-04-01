@@ -4,6 +4,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/email/rspec'
 require 'sidekiq/testing'
+require 'capybara/poltergeist'
 Sidekiq::Testing.inline!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -23,9 +24,13 @@ VCR.configure do |c|
   c.ignore_localhost = true
 end
 
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, js_errors: false)
+end
+
 Capybara.default_wait_time = 5
 Capybara.server_port = 52662
-Capybara.javascript_driver = :webkit
+Capybara.javascript_driver = :poltergeist
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
