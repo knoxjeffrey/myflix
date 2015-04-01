@@ -14,4 +14,4 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require payment
-//= require invitations
+//= require registration
