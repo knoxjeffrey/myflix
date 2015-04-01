@@ -18,7 +18,7 @@ feature "User registers", js: true, vcr: true do
       fill_in_valid_user_info
       fill_in_invalid_card_info
       click_sign_up
-    
+      warn page.body
       expect(page).to have_content("This card number looks invalid.")
     end
   
