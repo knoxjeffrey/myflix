@@ -18,12 +18,10 @@ class UsersController < ApplicationController
         flash[:success] = "Thank you for registering, please sign in."
         redirect_to sign_in_path
       else
-        flash[:danger] = attempt_card_payment.error
-        render :new
+        handle_create_error(attempt_card_payment.error)
       end
     else
-      flash[:danger] = "Please fix the errors in this form."
-      render :new
+      handle_create_error("Please fix the errors in this form.")
     end
   end 
   
@@ -64,6 +62,11 @@ class UsersController < ApplicationController
   
   def send_email
     AppMailer.delay.notify_on_user_signup(@user)
+  end
+  
+  def handle_create_error(error)
+    flash[:danger] = error
+    render :new
   end
 
 end
