@@ -2,11 +2,11 @@
   .container
     .row
       .video_large_cover.col-sm-7.col-sm-offset-1
-        %img(src="#{@video.display_large_video_image}")
+        %img(src="#{@video_presenter.display_large_video_image}")
       .video_info.col-sm-3
         %header
           %h3= @video.title
-          %span Rating: #{@video.average_rating}
+          %span Rating: #{@video_presenter.average_rating}
         %p= @video.description
         .actions
           %a.btn.btn-primary(href="#{@video.video_url}") Watch Now
