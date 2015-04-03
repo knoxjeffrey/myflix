@@ -90,6 +90,11 @@ GEM
     diff-lcs (1.2.5)
     domain_name (0.5.23)
       unf (>= 0.0.5, < 1.0.0)
+    draper (2.1.0)
+      actionpack (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      request_store (~> 1.0)
     erubis (2.7.0)
     eventmachine (1.0.0)
     excon (0.44.4)
@@ -193,6 +198,7 @@ GEM
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
     rendezvous (0.0.2)
+    request_store (1.1.0)
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
@@ -304,6 +310,7 @@ DEPENDENCIES
   carrierwave-aws
   coffee-rails
   database_cleaner (= 1.2.0)
+  draper
   fabrication
   faker (~> 1.4.3)
   figaro

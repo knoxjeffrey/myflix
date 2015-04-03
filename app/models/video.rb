@@ -17,14 +17,4 @@ class Video < ActiveRecord::Base
     video_title.present? ? where("title ILIKE ?", "%#{video_title}%").order(created_at: :desc) : []
   end
   
-  # If large_cover is present then return image url,  otherwise disply dummy image
-  def display_large_video_image
-    self.large_cover.present? ? self.large_cover_url : "http://dummyimage.com/665x375/000/fff.png&text=No+Preview+Available"
-  end
-  
-  # calulate average rating for video to 1 decimal point
-  def average_rating
-    self.reviews.average(:rating) ? reviews.average(:rating).round(1) : 0
-  end
-  
 end
