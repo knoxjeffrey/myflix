@@ -24,7 +24,7 @@ describe UsersController do
         let(:attempt_card_payment) { double(:attempt_card_payment) }
         before do
           expect(attempt_card_payment).to receive(:processed).and_return(true)
-          ExternalPaymentProcessor.stub(:create_payment_process).and_return(attempt_card_payment) 
+          allow(ExternalPaymentProcessor).to receive(:create_payment_process).and_return(attempt_card_payment) 
         end
         after { ActionMailer::Base.deliveries.clear }
 
@@ -58,7 +58,7 @@ describe UsersController do
         
           it "does not delegate to InvitationHandler to handle invitation" do
             handled_invitation = double("handled_invitation")                         
-            InvitationHandler.stub(:new).and_return(handled_invitation)
+            allow(InvitationHandler).to receive(:new).and_return(handled_invitation)
             expect(handled_invitation).not_to receive(:handle_invitation)
             
             post :create, user: generate_attributes_for(:user), stripeToken: '123'
@@ -71,7 +71,7 @@ describe UsersController do
         before do
           expect(attempt_card_payment).to receive(:processed).and_return(false)
           expect(attempt_card_payment).to receive(:error).and_return("error")
-          ExternalPaymentProcessor.stub(:create_payment_process).and_return(attempt_card_payment)
+          allow(ExternalPaymentProcessor).to receive(:create_payment_process).and_return(attempt_card_payment)
           
           post :create, user: generate_attributes_for(:user), stripeToken: '123' 
         end
@@ -118,7 +118,7 @@ describe UsersController do
         let(:attempt_card_payment) { double(:attempt_card_payment) }
         before do 
           attempt_card_payment.stub(:processed).and_return(true)
-          ExternalPaymentProcessor.stub(:create_payment_process).and_return(attempt_card_payment)
+          allow(ExternalPaymentProcessor).to receive(:create_payment_process).and_return(attempt_card_payment)
           post :create, user: { email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: 'Jeff Knox' }, stripeToken: '123'
         end
         after { ActionMailer::Base.deliveries.clear }
