@@ -42,21 +42,26 @@ describe UsersController do
           let(:inviter) { object_generator(:user) }
           let(:invitation) { object_generator(:invitation, inviter: inviter) }
         
-          before { post :create, user: { email_address: invitation.recipient_email_address, password: 'password',
-                                full_name: invitation.recipient_name}, invitation_token: invitation.token }
-        
-          it "makes the user follow the inviter" do
-            recipient = User.find_by_email_address(invitation.recipient_email_address)
-            expect(recipient.follows?(inviter)).to be true
+          it "delegates to InvitationHandler to handle invitation" do
+            handled_invitation = double("handled_invitation")                         
+            allow(InvitationHandler).to receive(:new).and_return(handled_invitation)
+            expect(handled_invitation).to receive(:handle_invitation)
+            
+            user_params = { email_address: invitation.recipient_email_address, password: 'password', full_name: invitation.recipient_name}
+            post :create, user: user_params, invitation_token: invitation.token
           end
+        end
         
-          it "makes the inviter follow the user" do
-            recipient = User.find_by_email_address(invitation.recipient_email_address)
-            expect(inviter.follows?(recipient)).to be true
-          end
+        context "when user hasn't been invited" do
+          let(:inviter) { object_generator(:user) }
+          let(:invitation) { object_generator(:invitation, inviter: inviter) }
         
-          it "expires the invitation upon creation" do
-            expect(Invitation.first.token).to be_nil
+          it "does not delegate to InvitationHandler to handle invitation" do
+            handled_invitation = double("handled_invitation")                         
+            InvitationHandler.stub(:new).and_return(handled_invitation)
+            expect(handled_invitation).not_to receive(:handle_invitation)
+            
+            post :create, user: generate_attributes_for(:user), stripeToken: '123'
           end
         end
       end
@@ -77,7 +82,7 @@ describe UsersController do
         end
         
         it "redirects to register_path" do
-          expect(response).to redirect_to register_path
+          expect(response).to render_template :new
         end
         
         it "generates a flash danger message" do

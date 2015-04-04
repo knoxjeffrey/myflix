@@ -10,20 +10,18 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.valid?
-      check_for_invitation
       attempt_card_payment = registration_payment_processor
       if attempt_card_payment.processed
         @user.save
+        check_for_invitation
         send_email
         flash[:success] = "Thank you for registering, please sign in."
         redirect_to sign_in_path
       else
-        flash[:danger] = attempt_card_payment.error
-        redirect_to register_path
+        handle_create_error(attempt_card_payment.error)
       end
     else
-      flash[:danger] = "Please fix the errors in this form."
-      render :new
+      handle_create_error("Please fix the errors in this form.")
     end
   end 
   
@@ -50,15 +48,8 @@ class UsersController < ApplicationController
   
   def check_for_invitation
     if params[:invitation_token].present?
-      handle_invitation
+      InvitationHandler.new(user: @user, invitation_token: params[:invitation_token]).handle_invitation
     end
-  end
-  
-  def handle_invitation
-    invitation = Invitation.find_by_token(params[:invitation_token])
-    @user.follow(invitation.inviter)
-    invitation.inviter.follow(@user)
-    invitation.clear_token_column
   end
 
   def registration_payment_processor
@@ -71,6 +62,11 @@ class UsersController < ApplicationController
   
   def send_email
     AppMailer.delay.notify_on_user_signup(@user)
+  end
+  
+  def handle_create_error(error)
+    flash[:danger] = error
+    render :new
   end
 
 end

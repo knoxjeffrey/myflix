@@ -4,6 +4,7 @@ class VideosController < ApplicationController
   
   def show
     @video = Video.find(params[:id])
+    @video_presenter = VideoPresenter.new(@video)
     @review = Review.new
   end
   

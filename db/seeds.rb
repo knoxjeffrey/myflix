@@ -58,7 +58,7 @@ Video.create(title: "Futurama",
             category_id: 1,
             video_url: "https://www.youtube.com/watch?v=xdxORsHKaSc&list=UUeNJ0zL2Mb-zNjZEm2KD0vg&index=13")
 
-User.create(email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: "Jeff Knox")
+User.create(email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: "Jeff Knox", admin: true)
 User.create(email_address: 'knoxjeffrey@hotmail.com', password: 'password', full_name: "Hazel Knox")
 User.create(email_address: 'info@tamars.co.uk', password: 'password', full_name: "Ruaridh Knox")
 
