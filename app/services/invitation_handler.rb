@@ -1,7 +1,5 @@
 class InvitationHandler
   
-  attr_reader :token, :user
-  
   def initialize(options={})
     @user = options[:user]
     @token = options[:invitation_token]
@@ -13,5 +11,9 @@ class InvitationHandler
     invitation.inviter.follow(user)
     invitation.clear_token_column
   end
+  
+  private
+  
+  attr_reader :token, :user
   
 end
