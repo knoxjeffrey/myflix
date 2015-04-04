@@ -44,11 +44,11 @@ describe UsersController do
         
           it "delegates to InvitationHandler to handle invitation" do
             handled_invitation = double("handled_invitation")                         
-            InvitationHandler.stub(:new).and_return(handled_invitation)
+            allow(InvitationHandler).to receive(:new).and_return(handled_invitation)
             expect(handled_invitation).to receive(:handle_invitation)
             
-            post :create, user: { email_address: invitation.recipient_email_address, password: 'password',
-                                            full_name: invitation.recipient_name}, invitation_token: invitation.token
+            user_params = { email_address: invitation.recipient_email_address, password: 'password', full_name: invitation.recipient_name}
+            post :create, user: user_params, invitation_token: invitation.token
           end
         end
         

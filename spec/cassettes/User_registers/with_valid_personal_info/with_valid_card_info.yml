@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.stripe.com/v1/charges
     body:
       encoding: US-ASCII
-      string: amount=999&currency=gbp&source=tok_15nfjGHKQF0Nl4V6mMxUDY94&description=Charge%20for%20test%40test.com
+      string: amount=999&currency=gbp&source=tok_15nyFaHKQF0Nl4V6xqImKaEL&description=Charge%20for%20test%40test.com
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Sat, 04 Apr 2015 01:05:43 GMT
+      - Sat, 04 Apr 2015 20:52:19 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_dZpY8V5hxZSIEnj7
+      - req_sskiqJqrqQv0eYOY
       Stripe-Version:
       - '2015-03-24'
       Strict-Transport-Security:
@@ -58,9 +58,9 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "ch_15nfjGHKQF0Nl4V6caUHcBOE",
+          "id": "ch_15nyFbHKQF0Nl4V6dk1v6WiV",
           "object": "charge",
-          "created": 1428109542,
+          "created": 1428180739,
           "livemode": false,
           "paid": true,
           "status": "succeeded",
@@ -68,7 +68,7 @@ http_interactions:
           "currency": "gbp",
           "refunded": false,
           "source": {
-            "id": "card_15nfjGHKQF0Nl4V6oSZQMPtL",
+            "id": "card_15nyFaHKQF0Nl4V6xO2vnPXm",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -92,7 +92,7 @@ http_interactions:
             "customer": null
           },
           "captured": true,
-          "balance_transaction": "txn_15nfjHHKQF0Nl4V6xlD6A3zL",
+          "balance_transaction": "txn_15nyFbHKQF0Nl4V6yqX1WLSq",
           "failure_message": null,
           "failure_code": null,
           "amount_refunded": 0,
@@ -111,10 +111,10 @@ http_interactions:
             "object": "list",
             "total_count": 0,
             "has_more": false,
-            "url": "/v1/charges/ch_15nfjGHKQF0Nl4V6caUHcBOE/refunds",
+            "url": "/v1/charges/ch_15nyFbHKQF0Nl4V6dk1v6WiV/refunds",
             "data": []
           }
         }
     http_version: 
-  recorded_at: Sat, 04 Apr 2015 01:05:42 GMT
+  recorded_at: Sat, 04 Apr 2015 20:52:19 GMT
 recorded_with: VCR 2.9.3

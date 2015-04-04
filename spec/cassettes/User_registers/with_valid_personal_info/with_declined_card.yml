@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.stripe.com/v1/charges
     body:
       encoding: US-ASCII
-      string: amount=999&currency=gbp&source=tok_15nfjIHKQF0Nl4V6DGpHyKpK&description=Charge%20for%20test%40test.com
+      string: amount=999&currency=gbp&source=tok_15nyFWHKQF0Nl4V65jqKR6fn&description=Charge%20for%20test%40test.com
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Sat, 04 Apr 2015 01:05:45 GMT
+      - Sat, 04 Apr 2015 20:52:15 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_iEY91decA84fRgiC
+      - req_lq72RJy6wc6fUifM
       Stripe-Version:
       - '2015-03-24'
     body:
@@ -60,9 +60,9 @@ http_interactions:
             "message": "Your card was declined.",
             "type": "card_error",
             "code": "card_declined",
-            "charge": "ch_15nfjJHKQF0Nl4V6lAC1noHF"
+            "charge": "ch_15nyFXHKQF0Nl4V6fjl3ARx2"
           }
         }
     http_version: 
-  recorded_at: Sat, 04 Apr 2015 01:05:44 GMT
+  recorded_at: Sat, 04 Apr 2015 20:52:15 GMT
 recorded_with: VCR 2.9.3

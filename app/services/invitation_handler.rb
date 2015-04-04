@@ -6,7 +6,7 @@ class InvitationHandler
   end
   
   def handle_invitation
-    invitation = Invitation.find_by_token(token)
+    invitation = Invitation.find_by(token: token)
     user.follow(invitation.inviter)
     invitation.inviter.follow(user)
     invitation.clear_token_column

@@ -13,13 +13,13 @@ describe InvitationHandler do
     
       it "makes the user follow the inviter" do
         invitation = InvitationHandler.new(options).handle_invitation
-        recipient = User.find_by_email_address(invited_user.email_address)
+        recipient = User.find_by(email_address: invited_user.email_address)
         expect(recipient.follows?(inviter)).to be true
       end
     
       it "makes the inviter follow the user" do
         invitation = InvitationHandler.new(options).handle_invitation
-        recipient = User.find_by_email_address(invited_user.email_address)
+        recipient = User.find_by(email_address: invited_user.email_address)
         expect(inviter.follows?(recipient)).to be true
       end
     
