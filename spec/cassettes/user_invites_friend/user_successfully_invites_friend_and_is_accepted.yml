@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.stripe.com/v1/charges
     body:
       encoding: US-ASCII
-      string: amount=999&currency=gbp&source=tok_15nWUqHKQF0Nl4V6KLUXwTSa&description=Charge%20for%20friend%40test.com
+      string: amount=999&currency=gbp&source=tok_15nfj3HKQF0Nl4V6z1QYSfu0&description=Charge%20for%20friend%40test.com
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -19,8 +19,8 @@ http_interactions:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
       - '{"bindings_version":"1.20.3","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin14.0","publisher":"stripe","uname":"Darwin
-        Jeffreys-MacBook-Pro.local 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26
-        19:26:47 PST 2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64"}'
+        Jeffreys-MBP 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26 19:26:47 PST
+        2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
       - '104'
   response:
@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Fri, 03 Apr 2015 15:14:13 GMT
+      - Sat, 04 Apr 2015 01:05:30 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_WayMvq2Ld06krOsI
+      - req_cH6sAhfNIEg6s2VK
       Stripe-Version:
       - '2015-03-24'
       Strict-Transport-Security:
@@ -58,9 +58,9 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "ch_15nWUrHKQF0Nl4V6LrG3Jtzt",
+          "id": "ch_15nfj4HKQF0Nl4V6PXAWmx1L",
           "object": "charge",
-          "created": 1428074053,
+          "created": 1428109530,
           "livemode": false,
           "paid": true,
           "status": "succeeded",
@@ -68,7 +68,7 @@ http_interactions:
           "currency": "gbp",
           "refunded": false,
           "source": {
-            "id": "card_15nWUqHKQF0Nl4V6exD7GMv5",
+            "id": "card_15nfj3HKQF0Nl4V6xc4nnCAU",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -92,7 +92,7 @@ http_interactions:
             "customer": null
           },
           "captured": true,
-          "balance_transaction": "txn_15nWUrHKQF0Nl4V6TU90g7Kw",
+          "balance_transaction": "txn_15nfj4HKQF0Nl4V6FmLnJhDz",
           "failure_message": null,
           "failure_code": null,
           "amount_refunded": 0,
@@ -111,10 +111,10 @@ http_interactions:
             "object": "list",
             "total_count": 0,
             "has_more": false,
-            "url": "/v1/charges/ch_15nWUrHKQF0Nl4V6LrG3Jtzt/refunds",
+            "url": "/v1/charges/ch_15nfj4HKQF0Nl4V6PXAWmx1L/refunds",
             "data": []
           }
         }
     http_version: 
-  recorded_at: Fri, 03 Apr 2015 15:14:13 GMT
+  recorded_at: Sat, 04 Apr 2015 01:05:30 GMT
 recorded_with: VCR 2.9.3

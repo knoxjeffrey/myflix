@@ -20,7 +20,7 @@ def create_external_payment_provider_token(card_number)
   token = Stripe::Token.create(
             :card => {
               :number => card_number,
-              :exp_month => 3,
+              :exp_month => Time.now.month,
               :exp_year => Time.now.year,
               :cvc => "123"
             },
