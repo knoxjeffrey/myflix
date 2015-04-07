@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.valid?
-      attempt_card_payment = registration_payment_processor
+      attempt_card_payment = subscription_payment_processor
       if attempt_card_payment.processed
         @user.save
         check_for_invitation
@@ -52,9 +52,8 @@ class UsersController < ApplicationController
     end
   end
 
-  def registration_payment_processor
-    ExternalPaymentProcessor.create_payment_process(
-      amount: 999,
+  def subscription_payment_processor
+    ExternalPaymentProcessor.create_customer_subscription(
       email: @user.email_address,
       token: params[:stripeToken]
     )
@@ -65,7 +64,7 @@ class UsersController < ApplicationController
   end
   
   def handle_create_error(error)
-    flash[:danger] = error
+    flash.now[:danger] = error
     render :new
   end
 

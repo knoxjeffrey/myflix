@@ -22,5 +22,18 @@ class StripePaymentProcessor
       self.error_message = e.message
     end 
   end
+  
+  def subscribe_customer
+    begin
+      customer = Stripe::Customer.create(
+        :source => token,
+        :plan => "myflix",
+        :email => email
+      )
+      self.is_successful = true
+    rescue Stripe::CardError => e
+      self.error_message = e.message
+    end
+  end
 
 end

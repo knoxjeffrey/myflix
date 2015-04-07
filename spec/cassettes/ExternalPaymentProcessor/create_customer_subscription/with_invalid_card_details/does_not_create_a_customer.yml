@@ -19,8 +19,8 @@ http_interactions:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
       - '{"bindings_version":"1.20.3","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin14.0","publisher":"stripe","uname":"Darwin
-        Jeffreys-MBP 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26 19:26:47 PST
-        2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64"}'
+        Jeffreys-MacBook-Pro.local 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26
+        19:26:47 PST 2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
       - '81'
   response:
@@ -31,11 +31,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Sat, 04 Apr 2015 20:52:10 GMT
+      - Tue, 07 Apr 2015 09:29:39 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '724'
+      - '726'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_xc2Kx9BsxVx0i69d
+      - req_9QfcPu6uPnfA9yDZ
       Stripe-Version:
       - '2015-03-24'
       Strict-Transport-Security:
@@ -58,14 +58,14 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_15nyFSHKQF0Nl4V6syPKeUmy",
+          "id": "tok_15ot1bHKQF0Nl4V6Q5euEt7k",
           "livemode": false,
-          "created": 1428180730,
+          "created": 1428398979,
           "used": false,
           "object": "token",
           "type": "card",
           "card": {
-            "id": "card_15nyFSHKQF0Nl4V67zhEXMHu",
+            "id": "card_15ot1bHKQF0Nl4V6nYnPngHx",
             "object": "card",
             "last4": "0002",
             "brand": "Visa",
@@ -86,16 +86,16 @@ http_interactions:
             "address_zip_check": null,
             "dynamic_last4": null
           },
-          "client_ip": "82.11.6.72"
+          "client_ip": "87.246.78.46"
         }
     http_version: 
-  recorded_at: Sat, 04 Apr 2015 20:52:10 GMT
+  recorded_at: Tue, 07 Apr 2015 09:29:52 GMT
 - request:
     method: post
-    uri: https://api.stripe.com/v1/charges
+    uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: amount=999&currency=gbp&source=tok_15nyFSHKQF0Nl4V6syPKeUmy&description=Charge%20for%20knoxjeffrey%40outlook.com
+      string: source=tok_15ot1bHKQF0Nl4V6Q5euEt7k&plan=myflix&email=email
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -109,10 +109,10 @@ http_interactions:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
       - '{"bindings_version":"1.20.3","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin14.0","publisher":"stripe","uname":"Darwin
-        Jeffreys-MBP 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26 19:26:47 PST
-        2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64"}'
+        Jeffreys-MacBook-Pro.local 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26
+        19:26:47 PST 2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
-      - '112'
+      - '59'
   response:
     status:
       code: 402
@@ -121,11 +121,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Sat, 04 Apr 2015 20:52:11 GMT
+      - Tue, 07 Apr 2015 09:29:40 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '162'
+      - '134'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -139,7 +139,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_62aYMZ2ghy0ONuT0
+      - req_3OwEBG95Q4ft1els
       Stripe-Version:
       - '2015-03-24'
     body:
@@ -149,10 +149,10 @@ http_interactions:
           "error": {
             "message": "Your card was declined.",
             "type": "card_error",
-            "code": "card_declined",
-            "charge": "ch_15nyFTHKQF0Nl4V6j5Jc0jWh"
+            "param": "",
+            "code": "card_declined"
           }
         }
     http_version: 
-  recorded_at: Sat, 04 Apr 2015 20:52:11 GMT
+  recorded_at: Tue, 07 Apr 2015 09:29:53 GMT
 recorded_with: VCR 2.9.3

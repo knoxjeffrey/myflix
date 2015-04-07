@@ -24,7 +24,7 @@ describe UsersController do
         let(:attempt_card_payment) { double(:attempt_card_payment) }
         before do
           expect(attempt_card_payment).to receive(:processed).and_return(true)
-          allow(ExternalPaymentProcessor).to receive(:create_payment_process).and_return(attempt_card_payment) 
+          allow(ExternalPaymentProcessor).to receive(:create_customer_subscription).and_return(attempt_card_payment) 
         end
         after { ActionMailer::Base.deliveries.clear }
 
@@ -71,7 +71,7 @@ describe UsersController do
         before do
           expect(attempt_card_payment).to receive(:processed).and_return(false)
           expect(attempt_card_payment).to receive(:error).and_return("error")
-          allow(ExternalPaymentProcessor).to receive(:create_payment_process).and_return(attempt_card_payment)
+          allow(ExternalPaymentProcessor).to receive(:create_customer_subscription).and_return(attempt_card_payment)
           
           post :create, user: generate_attributes_for(:user), stripeToken: '123' 
         end
@@ -118,7 +118,7 @@ describe UsersController do
         let(:attempt_card_payment) { double(:attempt_card_payment) }
         before do 
           attempt_card_payment.stub(:processed).and_return(true)
-          allow(ExternalPaymentProcessor).to receive(:create_payment_process).and_return(attempt_card_payment)
+          allow(ExternalPaymentProcessor).to receive(:create_customer_subscription).and_return(attempt_card_payment)
           post :create, user: { email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: 'Jeff Knox' }, stripeToken: '123'
         end
         after { ActionMailer::Base.deliveries.clear }

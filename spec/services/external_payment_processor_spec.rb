@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ExternalPaymentProcessor do
   
-  describe :charge do
+  describe :create_payment_process do
     
     context "with valid card details" do
       it "makes a successful charge", :vcr do
@@ -33,4 +33,37 @@ describe ExternalPaymentProcessor do
     end
     
   end
+  
+  describe :create_customer_subscription do
+    
+    context "with valid card details" do
+      it "creates a customer", :vcr do
+        token = create_external_payment_provider_token("4242424242424242")
+        options = { email: 'knoxjeffrey@outlook.com', token: token }
+        
+        subscribe_customer = ExternalPaymentProcessor.create_customer_subscription(options)
+        
+        expect(subscribe_customer.processed).to be true
+      end
+    end
+    
+    context "with invalid card details" do
+      let(:token){ create_external_payment_provider_token("4000000000000002") }
+      let(:options) { { email: 'knoxjeffrey@outlook.com', token: token } }
+      
+      it "does not create a customer", :vcr do
+        subscribe_customer = ExternalPaymentProcessor.create_customer_subscription(options)
+        
+        expect(subscribe_customer.processed).to be nil
+      end
+      
+      it "returns an error message", :vcr do
+        subscribe_customer = ExternalPaymentProcessor.create_customer_subscription(options)
+        
+        expect(subscribe_customer.error).to eq('Your card was declined.')
+      end
+    end
+    
+  end
+    
 end
