@@ -102,11 +102,11 @@ describe User do
   end
   
   describe :deactivate! do
-    let(:user1) { object_generator(:user, active: true) }
+    let(:user) { object_generator(:user, active: true) }
     
     it "deactivates a user by setting active to false" do
-      user1.deactivate!
-      expect(user1).not_to be_active
+      user.deactivate!
+      expect(user).not_to be_active
     end
   end
 end
