@@ -19,8 +19,8 @@ http_interactions:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
       - '{"bindings_version":"1.20.3","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin14.0","publisher":"stripe","uname":"Darwin
-        Jeffreys-MacBook-Pro.local 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26
-        19:26:47 PST 2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64"}'
+        Jeffreys-MBP 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26 19:26:47 PST
+        2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
       - '81'
   response:
@@ -31,11 +31,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 08 Apr 2015 10:22:19 GMT
+      - Wed, 08 Apr 2015 22:15:55 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '726'
+      - '724'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_B4fFXA3lbh6ZlYOl
+      - req_v51MIEjfh3E9laMX
       Stripe-Version:
       - '2015-03-24'
       Strict-Transport-Security:
@@ -58,14 +58,14 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_15pGK7HKQF0Nl4V6TukJdoWz",
+          "id": "tok_15pRShHKQF0Nl4V6z8bUG3l4",
           "livemode": false,
-          "created": 1428488539,
+          "created": 1428531355,
           "used": false,
           "object": "token",
           "type": "card",
           "card": {
-            "id": "card_15pGK7HKQF0Nl4V62ZOYV0GA",
+            "id": "card_15pRShHKQF0Nl4V6JGzkd7kr",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -86,16 +86,16 @@ http_interactions:
             "address_zip_check": null,
             "dynamic_last4": null
           },
-          "client_ip": "87.246.78.46"
+          "client_ip": "82.11.6.72"
         }
     http_version: 
-  recorded_at: Wed, 08 Apr 2015 10:22:20 GMT
+  recorded_at: Wed, 08 Apr 2015 22:15:55 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: source=tok_15pGK7HKQF0Nl4V6TukJdoWz&plan=myflix&email=knoxjeffrey%40outlook.com
+      string: source=tok_15pRShHKQF0Nl4V6z8bUG3l4&plan=myflix&email=knoxjeffrey%40outlook.com
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -109,8 +109,8 @@ http_interactions:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
       - '{"bindings_version":"1.20.3","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin14.0","publisher":"stripe","uname":"Darwin
-        Jeffreys-MacBook-Pro.local 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26
-        19:26:47 PST 2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64"}'
+        Jeffreys-MBP 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26 19:26:47 PST
+        2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
       - '79'
   response:
@@ -121,7 +121,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 08 Apr 2015 10:22:20 GMT
+      - Wed, 08 Apr 2015 22:15:56 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -139,7 +139,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_X2Ecphu5QwZNIRW1
+      - req_iuqJT3NectrwUBVc
       Stripe-Version:
       - '2015-03-24'
       Strict-Transport-Security:
@@ -149,8 +149,8 @@ http_interactions:
       string: |
         {
           "object": "customer",
-          "created": 1428488539,
-          "id": "cus_61Ivt0reb5fAez",
+          "created": 1428531356,
+          "id": "cus_61URhghkzE2nBX",
           "livemode": false,
           "description": null,
           "email": "knoxjeffrey@outlook.com",
@@ -160,10 +160,10 @@ http_interactions:
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_61Ivt0reb5fAez/subscriptions",
+            "url": "/v1/customers/cus_61URhghkzE2nBX/subscriptions",
             "data": [
               {
-                "id": "sub_61Iv2AmNOShaTn",
+                "id": "sub_61URDo2eZTDcmG",
                 "plan": {
                   "interval": "month",
                   "name": "MyFLiX Subscription",
@@ -179,12 +179,12 @@ http_interactions:
                   "statement_descriptor": null
                 },
                 "object": "subscription",
-                "start": 1428488539,
+                "start": 1428531356,
                 "status": "active",
-                "customer": "cus_61Ivt0reb5fAez",
+                "customer": "cus_61URhghkzE2nBX",
                 "cancel_at_period_end": false,
-                "current_period_start": 1428488539,
-                "current_period_end": 1431080539,
+                "current_period_start": 1428531356,
+                "current_period_end": 1431123356,
                 "ended_at": null,
                 "trial_start": null,
                 "trial_end": null,
@@ -204,10 +204,10 @@ http_interactions:
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_61Ivt0reb5fAez/sources",
+            "url": "/v1/customers/cus_61URhghkzE2nBX/sources",
             "data": [
               {
-                "id": "card_15pGK7HKQF0Nl4V62ZOYV0GA",
+                "id": "card_15pRShHKQF0Nl4V6JGzkd7kr",
                 "object": "card",
                 "last4": "4242",
                 "brand": "Visa",
@@ -228,12 +228,12 @@ http_interactions:
                 "address_zip_check": null,
                 "dynamic_last4": null,
                 "metadata": {},
-                "customer": "cus_61Ivt0reb5fAez"
+                "customer": "cus_61URhghkzE2nBX"
               }
             ]
           },
-          "default_source": "card_15pGK7HKQF0Nl4V62ZOYV0GA"
+          "default_source": "card_15pRShHKQF0Nl4V6JGzkd7kr"
         }
     http_version: 
-  recorded_at: Wed, 08 Apr 2015 10:22:21 GMT
+  recorded_at: Wed, 08 Apr 2015 22:15:56 GMT
 recorded_with: VCR 2.9.3

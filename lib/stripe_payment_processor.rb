@@ -21,6 +21,7 @@ class StripePaymentProcessor
     rescue Stripe::CardError => e
       self.error_message = e.message
     end 
+    self
   end
   
   def subscribe_customer
@@ -34,6 +35,15 @@ class StripePaymentProcessor
     rescue Stripe::CardError => e
       self.error_message = e.message
     end
+    self
+  end
+  
+  def success?
+    self.response.present?
+  end
+  
+  def payment_id
+    self.response.id
   end
 
 end
