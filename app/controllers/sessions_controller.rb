@@ -8,7 +8,12 @@ class SessionsController < ApplicationController
     user = User.find_by(email_address: params[:email_address])
     
     if user && user.authenticate(params[:password])
-      login_user!(user)
+      if user.active?
+        login_user!(user)
+      else
+        flash[:danger] = "Your account has been suspended, please contact customer services."
+        redirect_to sign_in_path
+      end
     else
       flash[:danger] = "There is a problem with your username or password"
       redirect_to sign_in_path

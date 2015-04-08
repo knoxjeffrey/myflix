@@ -37,6 +37,7 @@ Myflix::Application.routes.draw do
   
   namespace :admin do
     get '/add_video', to: 'videos#new'
+    get '/payments', to: 'payments#index'
     resources :videos, only: [:create]
   end
   
@@ -49,5 +50,7 @@ Myflix::Application.routes.draw do
     username == ENV["SIDEKIQ_USERNAME"] && password == ENV["SIDEKIQ_PASSWORD"]
   end if Rails.env.production?
   mount Sidekiq::Web => '/sidekiq'
+  
+  mount StripeEvent::Engine, at: '/stripe_events'
 
 end

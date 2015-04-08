@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.stripe.com/v1/customers
+    uri: https://api.stripe.com/v1/tokens
     body:
       encoding: US-ASCII
-      string: source=tok_15pRSWHKQF0Nl4V6WnWwLLMU&plan=myflix&email=friend%40test.com
+      string: card[number]=4242424242424242&card[exp_month]=4&card[exp_year]=2015&card[cvc]=123
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -22,7 +22,7 @@ http_interactions:
         Jeffreys-MBP 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26 19:26:47 PST
         2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
-      - '71'
+      - '81'
   response:
     status:
       code: 200
@@ -31,11 +31,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 08 Apr 2015 22:15:45 GMT
+      - Wed, 08 Apr 2015 22:15:57 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '2308'
+      - '724'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,7 +49,97 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_8zXqmcXmF6A97Czi
+      - req_4nZRiyFXRqyLk7NS
+      Stripe-Version:
+      - '2015-03-24'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "id": "tok_15pRSjHKQF0Nl4V6SPRZkKBn",
+          "livemode": false,
+          "created": 1428531357,
+          "used": false,
+          "object": "token",
+          "type": "card",
+          "card": {
+            "id": "card_15pRSjHKQF0Nl4V68EHiPDV6",
+            "object": "card",
+            "last4": "4242",
+            "brand": "Visa",
+            "funding": "credit",
+            "exp_month": 4,
+            "exp_year": 2015,
+            "fingerprint": "6lWhPIX7MfuqxkVU",
+            "country": "US",
+            "name": null,
+            "address_line1": null,
+            "address_line2": null,
+            "address_city": null,
+            "address_state": null,
+            "address_zip": null,
+            "address_country": null,
+            "cvc_check": "unchecked",
+            "address_line1_check": null,
+            "address_zip_check": null,
+            "dynamic_last4": null
+          },
+          "client_ip": "82.11.6.72"
+        }
+    http_version: 
+  recorded_at: Wed, 08 Apr 2015 22:15:57 GMT
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/customers
+    body:
+      encoding: US-ASCII
+      string: source=tok_15pRSjHKQF0Nl4V6SPRZkKBn&plan=myflix&email=knoxjeffrey%40outlook.com
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.20.3
+      Authorization:
+      - Bearer sk_test_r1VytI1A2tAfp0v8OJYTXwKe
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.20.3","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin14.0","publisher":"stripe","uname":"Darwin
+        Jeffreys-MBP 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26 19:26:47 PST
+        2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64"}'
+      Content-Length:
+      - '79'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 08 Apr 2015 22:15:58 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '2316'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_ncsAyhpGgFLPWsSw
       Stripe-Version:
       - '2015-03-24'
       Strict-Transport-Security:
@@ -59,21 +149,21 @@ http_interactions:
       string: |
         {
           "object": "customer",
-          "created": 1428531345,
-          "id": "cus_61URFnTZEBNTRI",
+          "created": 1428531358,
+          "id": "cus_61URm0rH30j1dT",
           "livemode": false,
           "description": null,
-          "email": "friend@test.com",
+          "email": "knoxjeffrey@outlook.com",
           "delinquent": false,
           "metadata": {},
           "subscriptions": {
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_61URFnTZEBNTRI/subscriptions",
+            "url": "/v1/customers/cus_61URm0rH30j1dT/subscriptions",
             "data": [
               {
-                "id": "sub_61URzDnQF86V5T",
+                "id": "sub_61URaMwSrm6Hxq",
                 "plan": {
                   "interval": "month",
                   "name": "MyFLiX Subscription",
@@ -89,12 +179,12 @@ http_interactions:
                   "statement_descriptor": null
                 },
                 "object": "subscription",
-                "start": 1428531345,
+                "start": 1428531358,
                 "status": "active",
-                "customer": "cus_61URFnTZEBNTRI",
+                "customer": "cus_61URm0rH30j1dT",
                 "cancel_at_period_end": false,
-                "current_period_start": 1428531345,
-                "current_period_end": 1431123345,
+                "current_period_start": 1428531358,
+                "current_period_end": 1431123358,
                 "ended_at": null,
                 "trial_start": null,
                 "trial_end": null,
@@ -114,10 +204,10 @@ http_interactions:
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_61URFnTZEBNTRI/sources",
+            "url": "/v1/customers/cus_61URm0rH30j1dT/sources",
             "data": [
               {
-                "id": "card_15pRSWHKQF0Nl4V6jCyOaQXo",
+                "id": "card_15pRSjHKQF0Nl4V68EHiPDV6",
                 "object": "card",
                 "last4": "4242",
                 "brand": "Visa",
@@ -138,12 +228,12 @@ http_interactions:
                 "address_zip_check": null,
                 "dynamic_last4": null,
                 "metadata": {},
-                "customer": "cus_61URFnTZEBNTRI"
+                "customer": "cus_61URm0rH30j1dT"
               }
             ]
           },
-          "default_source": "card_15pRSWHKQF0Nl4V6jCyOaQXo"
+          "default_source": "card_15pRSjHKQF0Nl4V68EHiPDV6"
         }
     http_version: 
-  recorded_at: Wed, 08 Apr 2015 22:15:45 GMT
+  recorded_at: Wed, 08 Apr 2015 22:15:58 GMT
 recorded_with: VCR 2.9.3

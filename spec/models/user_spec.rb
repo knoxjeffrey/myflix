@@ -100,4 +100,13 @@ describe User do
       expect(user.is_admin?).to be false
     end
   end
+  
+  describe :deactivate! do
+    let(:user) { object_generator(:user, active: true) }
+    
+    it "deactivates a user by setting active to false" do
+      user.deactivate!
+      expect(user).not_to be_active
+    end
+  end
 end

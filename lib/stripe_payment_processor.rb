@@ -1,7 +1,7 @@
 class StripePaymentProcessor
   
   attr_reader :amount, :email, :token
-  attr_accessor :error_message, :is_successful
+  attr_accessor :error_message, :response
   
   def initialize(options={})
     @amount = options[:amount]
@@ -17,10 +17,33 @@ class StripePaymentProcessor
       source: token,
       description: "Charge for #{email}"
       )
-      self.is_successful = true
+      self.response = charge
     rescue Stripe::CardError => e
       self.error_message = e.message
     end 
+    self
+  end
+  
+  def subscribe_customer
+    begin
+      customer = Stripe::Customer.create(
+        :source => token,
+        :plan => "myflix",
+        :email => email
+      )
+      self.response = customer
+    rescue Stripe::CardError => e
+      self.error_message = e.message
+    end
+    self
+  end
+  
+  def success?
+    self.response.present?
+  end
+  
+  def payment_id
+    self.response.id
   end
 
 end
