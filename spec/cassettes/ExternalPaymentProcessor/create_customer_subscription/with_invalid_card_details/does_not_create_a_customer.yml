@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 07 Apr 2015 13:23:50 GMT
+      - Wed, 08 Apr 2015 10:22:15 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_nVVNft5wbIJD3PI7
+      - req_RYjkyD9gnN5W4faX
       Stripe-Version:
       - '2015-03-24'
       Strict-Transport-Security:
@@ -58,14 +58,14 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_15owgEHKQF0Nl4V6A4i3cTMP",
+          "id": "tok_15pGK3HKQF0Nl4V6gIGmVLWN",
           "livemode": false,
-          "created": 1428413030,
+          "created": 1428488535,
           "used": false,
           "object": "token",
           "type": "card",
           "card": {
-            "id": "card_15owgEHKQF0Nl4V60iII1Bwo",
+            "id": "card_15pGK3HKQF0Nl4V6pS3LTa2X",
             "object": "card",
             "last4": "0002",
             "brand": "Visa",
@@ -89,13 +89,13 @@ http_interactions:
           "client_ip": "87.246.78.46"
         }
     http_version: 
-  recorded_at: Tue, 07 Apr 2015 13:23:50 GMT
+  recorded_at: Wed, 08 Apr 2015 10:22:16 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: source=tok_15owgEHKQF0Nl4V6A4i3cTMP&plan=myflix&email=knoxjeffrey%40outlook.com
+      string: source=tok_15pGK3HKQF0Nl4V6gIGmVLWN&plan=myflix&email=knoxjeffrey%40outlook.com
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -121,7 +121,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 07 Apr 2015 13:23:51 GMT
+      - Wed, 08 Apr 2015 10:22:16 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -139,7 +139,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_0Hu1Yg9zD4jn7pyY
+      - req_KuoL98Wfl7DunUyR
       Stripe-Version:
       - '2015-03-24'
     body:
@@ -154,5 +154,5 @@ http_interactions:
           }
         }
     http_version: 
-  recorded_at: Tue, 07 Apr 2015 13:23:51 GMT
+  recorded_at: Wed, 08 Apr 2015 10:22:17 GMT
 recorded_with: VCR 2.9.3

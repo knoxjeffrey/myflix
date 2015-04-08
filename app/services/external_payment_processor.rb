@@ -6,13 +6,13 @@ class ExternalPaymentProcessor
   #creates a new instance of ExternalPaymentProcessor that sets either processed as the successful response or error as the error message
   #based on whether the response from the payment processor returns an id.
   def self.create_payment_process(options={})
-    response = payment_processor.new(options).process_card
-    response.try(:id).present? ? new(processed: response) : new(error: response)
+    payment_response = payment_processor.new(options).process_card
+    create_new_instance_from_response(payment_response)
   end
   
   def self.create_customer_subscription(options={})
-    response = payment_processor.new(options).subscribe_customer
-    response.try(:id).present? ? new(processed: response) : new(error: response)
+    payment_response = payment_processor.new(options).subscribe_customer
+    create_new_instance_from_response(payment_response)
   end
   
   def successful?
@@ -32,6 +32,10 @@ class ExternalPaymentProcessor
   
   def self.payment_processor
     StripePaymentProcessor
+  end
+  
+  def self.create_new_instance_from_response(payment_response)
+    payment_response.try(:id).present? ? new(processed: payment_response) : new(error: payment_response)
   end
   
 end
