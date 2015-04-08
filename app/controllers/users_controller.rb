@@ -11,7 +11,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.valid?
       attempt_card_payment = subscription_payment_processor
-      if attempt_card_payment.processed
+      if attempt_card_payment.successful?
+        @user.customer_token = attempt_card_payment.customer_token
         @user.save
         check_for_invitation
         send_email

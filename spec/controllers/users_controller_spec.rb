@@ -23,7 +23,8 @@ describe UsersController do
       
         let(:attempt_card_payment) { double(:attempt_card_payment) }
         before do
-          expect(attempt_card_payment).to receive(:processed).and_return(true)
+          expect(attempt_card_payment).to receive(:successful?).and_return(true)
+          expect(attempt_card_payment).to receive(:customer_token).and_return('123')
           allow(ExternalPaymentProcessor).to receive(:create_customer_subscription).and_return(attempt_card_payment) 
         end
         after { ActionMailer::Base.deliveries.clear }
@@ -36,6 +37,11 @@ describe UsersController do
         it "redirects to sign_in path" do
           post :create, user: generate_attributes_for(:user), stripeToken: '123'
           expect(response).to redirect_to sign_in_path
+        end
+        
+        it "stores the customer token from stripe" do
+          post :create, user: generate_attributes_for(:user), stripeToken: '123'
+          expect(User.first.customer_token).to eq('123')
         end
       
         context "when user has been invited" do
@@ -69,7 +75,7 @@ describe UsersController do
       context "invalid card details" do
         let(:attempt_card_payment) { double(:attempt_card_payment) }
         before do
-          expect(attempt_card_payment).to receive(:processed).and_return(false)
+          expect(attempt_card_payment).to receive(:successful?).and_return(false)
           expect(attempt_card_payment).to receive(:error).and_return("error")
           allow(ExternalPaymentProcessor).to receive(:create_customer_subscription).and_return(attempt_card_payment)
           
@@ -117,7 +123,8 @@ describe UsersController do
       context "valid input details" do
         let(:attempt_card_payment) { double(:attempt_card_payment) }
         before do 
-          attempt_card_payment.stub(:processed).and_return(true)
+          expect(attempt_card_payment).to receive(:successful?).and_return(true)
+          expect(attempt_card_payment).to receive(:customer_token).and_return('123')
           allow(ExternalPaymentProcessor).to receive(:create_customer_subscription).and_return(attempt_card_payment)
           post :create, user: { email_address: 'knoxjeffrey@outlook.com', password: 'password', full_name: 'Jeff Knox' }, stripeToken: '123'
         end

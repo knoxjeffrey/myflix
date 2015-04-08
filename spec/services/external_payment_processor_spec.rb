@@ -11,7 +11,7 @@ describe ExternalPaymentProcessor do
 
         card_charge = ExternalPaymentProcessor.create_payment_process(options)
         
-        expect(card_charge.processed).to be true
+        expect(card_charge.successful?).to be true
       end
     end
     
@@ -22,7 +22,7 @@ describe ExternalPaymentProcessor do
       it "does not make a charge", :vcr do
         card_charge = ExternalPaymentProcessor.create_payment_process(options)
         
-        expect(card_charge.processed).to be nil
+        expect(card_charge.successful?).to be false
       end
       
       it "returns an error message", :vcr do
@@ -43,7 +43,16 @@ describe ExternalPaymentProcessor do
         
         subscribe_customer = ExternalPaymentProcessor.create_customer_subscription(options)
         
-        expect(subscribe_customer.processed).to be true
+        expect(subscribe_customer.successful?).to be true
+      end
+      
+      it "returns the customer token", :vcr do
+        token = create_external_payment_provider_token("4242424242424242")
+        options = { email: 'knoxjeffrey@outlook.com', token: token }
+        
+        subscribe_customer = ExternalPaymentProcessor.create_customer_subscription(options)
+        
+        expect(subscribe_customer.customer_token).to be_present
       end
     end
     
@@ -54,7 +63,7 @@ describe ExternalPaymentProcessor do
       it "does not create a customer", :vcr do
         subscribe_customer = ExternalPaymentProcessor.create_customer_subscription(options)
         
-        expect(subscribe_customer.processed).to be nil
+        expect(subscribe_customer.successful?).to be false
       end
       
       it "returns an error message", :vcr do

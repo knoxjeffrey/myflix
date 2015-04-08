@@ -257,6 +257,9 @@ GEM
       dante (>= 0.2.0)
       jimson-temp
       stripe (>= 1.20.1)
+    stripe_event (1.5.0)
+      activesupport (>= 3.1)
+      stripe (~> 1.6)
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -329,6 +332,7 @@ DEPENDENCIES
   sinatra
   stripe
   stripe-ruby-mock
+  stripe_event
   thin
   uglifier
   vcr

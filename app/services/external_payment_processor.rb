@@ -3,16 +3,24 @@ class ExternalPaymentProcessor
 
   attr_accessor :processed, :error
   
-  #creates a new instance of ExternalPaymentProcessor that sets either processed as true or error as the error message
-  #based on the response from the payment processor
+  #creates a new instance of ExternalPaymentProcessor that sets either processed as the successful response or error as the error message
+  #based on whether the response from the payment processor returns an id.
   def self.create_payment_process(options={})
     response = payment_processor.new(options).process_card
-    response == true ? new(processed: response) : new(error: response)
+    response.try(:id).present? ? new(processed: response) : new(error: response)
   end
   
   def self.create_customer_subscription(options={})
     response = payment_processor.new(options).subscribe_customer
-    response == true ? new(processed: response) : new(error: response)
+    response.try(:id).present? ? new(processed: response) : new(error: response)
+  end
+  
+  def successful?
+    processed.present?
+  end
+  
+  def customer_token
+    processed.id
   end
 
   private

@@ -1,0 +1,130 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/events/evt_15pF2nHKQF0Nl4V6p6hZA7oS
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.20.3
+      Authorization:
+      - Bearer sk_test_r1VytI1A2tAfp0v8OJYTXwKe
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.20.3","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin14.0","publisher":"stripe","uname":"Darwin
+        Jeffreys-MacBook-Pro.local 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26
+        19:26:47 PST 2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 08 Apr 2015 09:11:25 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1903'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_6K040hSNBc3tDkDj
+      Stripe-Version:
+      - '2015-03-24'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "id": "evt_15pF2nHKQF0Nl4V6p6hZA7oS",
+          "created": 1428483621,
+          "livemode": false,
+          "type": "charge.failed",
+          "data": {
+            "object": {
+              "id": "ch_15pF2nHKQF0Nl4V66gthOpky",
+              "object": "charge",
+              "created": 1428483621,
+              "livemode": false,
+              "paid": false,
+              "status": "failed",
+              "amount": 999,
+              "currency": "gbp",
+              "refunded": false,
+              "source": {
+                "id": "card_15pF1gHKQF0Nl4V6CMT7I7Jd",
+                "object": "card",
+                "last4": "0341",
+                "brand": "Visa",
+                "funding": "credit",
+                "exp_month": 4,
+                "exp_year": 2016,
+                "fingerprint": "28HCaSm99cD0Xpct",
+                "country": "US",
+                "name": null,
+                "address_line1": null,
+                "address_line2": null,
+                "address_city": null,
+                "address_state": null,
+                "address_zip": null,
+                "address_country": null,
+                "cvc_check": "pass",
+                "address_line1_check": null,
+                "address_zip_check": null,
+                "dynamic_last4": null,
+                "metadata": {},
+                "customer": "cus_60zoM8D3o61YcN"
+              },
+              "captured": false,
+              "balance_transaction": null,
+              "failure_message": "Your card was declined.",
+              "failure_code": "card_declined",
+              "amount_refunded": 0,
+              "customer": "cus_60zoM8D3o61YcN",
+              "invoice": null,
+              "description": "this will fail",
+              "dispute": null,
+              "metadata": {},
+              "statement_descriptor": null,
+              "fraud_details": {},
+              "receipt_email": null,
+              "receipt_number": null,
+              "shipping": null,
+              "application_fee": null,
+              "refunds": {
+                "object": "list",
+                "total_count": 0,
+                "has_more": false,
+                "url": "/v1/charges/ch_15pF2nHKQF0Nl4V66gthOpky/refunds",
+                "data": []
+              }
+            }
+          },
+          "object": "event",
+          "pending_webhooks": 0,
+          "request": "iar_61HcD5FWrkFtxL",
+          "api_version": "2015-03-24"
+        }
+    http_version: 
+  recorded_at: Wed, 08 Apr 2015 09:11:26 GMT
+recorded_with: VCR 2.9.3

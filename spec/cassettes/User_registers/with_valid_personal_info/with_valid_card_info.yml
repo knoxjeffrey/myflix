@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: source=tok_15ot1vHKQF0Nl4V6UIcoPAtq&plan=myflix&email=email
+      string: source=tok_15owftHKQF0Nl4V6HdcyiYul&plan=myflix&email=test%40test.com
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -22,7 +22,7 @@ http_interactions:
         Jeffreys-MacBook-Pro.local 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26
         19:26:47 PST 2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
-      - '59'
+      - '69'
   response:
     status:
       code: 200
@@ -31,11 +31,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 07 Apr 2015 09:30:00 GMT
+      - Tue, 07 Apr 2015 13:23:30 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '2298'
+      - '2306'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_CxWgqnODaswY3Zeo
+      - req_EMe3KjfHM5xAexNx
       Stripe-Version:
       - '2015-03-24'
       Strict-Transport-Security:
@@ -59,21 +59,21 @@ http_interactions:
       string: |
         {
           "object": "customer",
-          "created": 1428398999,
-          "id": "cus_60urfFygoBH5GN",
+          "created": 1428413010,
+          "id": "cus_60ydJO6rIBN7iZ",
           "livemode": false,
           "description": null,
-          "email": "email",
+          "email": "test@test.com",
           "delinquent": false,
           "metadata": {},
           "subscriptions": {
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_60urfFygoBH5GN/subscriptions",
+            "url": "/v1/customers/cus_60ydJO6rIBN7iZ/subscriptions",
             "data": [
               {
-                "id": "sub_60urbdmNiHntqN",
+                "id": "sub_60ydnCUJeW8Uq0",
                 "plan": {
                   "interval": "month",
                   "name": "MyFLiX Subscription",
@@ -89,12 +89,12 @@ http_interactions:
                   "statement_descriptor": null
                 },
                 "object": "subscription",
-                "start": 1428398999,
+                "start": 1428413010,
                 "status": "active",
-                "customer": "cus_60urfFygoBH5GN",
+                "customer": "cus_60ydJO6rIBN7iZ",
                 "cancel_at_period_end": false,
-                "current_period_start": 1428398999,
-                "current_period_end": 1430990999,
+                "current_period_start": 1428413010,
+                "current_period_end": 1431005010,
                 "ended_at": null,
                 "trial_start": null,
                 "trial_end": null,
@@ -114,10 +114,10 @@ http_interactions:
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_60urfFygoBH5GN/sources",
+            "url": "/v1/customers/cus_60ydJO6rIBN7iZ/sources",
             "data": [
               {
-                "id": "card_15ot1vHKQF0Nl4V6YmVNfyRO",
+                "id": "card_15owftHKQF0Nl4V6MopBesMN",
                 "object": "card",
                 "last4": "4242",
                 "brand": "Visa",
@@ -138,12 +138,12 @@ http_interactions:
                 "address_zip_check": null,
                 "dynamic_last4": null,
                 "metadata": {},
-                "customer": "cus_60urfFygoBH5GN"
+                "customer": "cus_60ydJO6rIBN7iZ"
               }
             ]
           },
-          "default_source": "card_15ot1vHKQF0Nl4V6YmVNfyRO"
+          "default_source": "card_15owftHKQF0Nl4V6MopBesMN"
         }
     http_version: 
-  recorded_at: Tue, 07 Apr 2015 09:30:13 GMT
+  recorded_at: Tue, 07 Apr 2015 13:23:30 GMT
 recorded_with: VCR 2.9.3
