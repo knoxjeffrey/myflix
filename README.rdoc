@@ -4,19 +4,20 @@ Tealeaf Academy Course - Build Robust And Production Quality Applications
 
 This application is a Netflix clone that includes the following features:
 
-Seeding data
 Search
 Sending emails
-Use random tokens
-Email service providers
 Background jobs
 Resque and Sidekiq
 Amazon S3
-Uploading files
-Scheduled jobs
-Securing access
+Uploading files for admins
 Collect credit card payments with Stripe
 Payment forms
 Recurring billing
+Restrict access when future payments fail
+Follow other users
+Add videos to queue
+Write video reviews
 
 My production version of the application can be found at: http://knoxjeffrey-myflix.herokuapp.com/
+
+Note, when signing up do not use your real card information as this is just a test application for the Tealeaf Academy courset!  You can use the Stripe test card info with card number 4242424242424242 and any 3 digit security code.

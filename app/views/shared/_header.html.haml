@@ -21,8 +21,8 @@
           %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
             %li
               = link_to "Invite A Friend", invite_friend_path
-              %a(href="#") Account
-              %a(href="#") Plan and Billing
+              / %a(href="#") Account
+              / %a(href="#") Plan and Billing
               - if current_user.is_admin?
                 = link_to "Add Video", admin_add_video_path
               %a(href="/sign_out") Sign Out
