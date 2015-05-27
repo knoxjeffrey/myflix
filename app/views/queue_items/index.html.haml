@@ -10,7 +10,7 @@
               %tr
                 %th(width="10%") List Order
                 %th(width="30%") Video Title
-                %th(width="10%") Play
+                / %th(width="10%") Play
                 %th(width="20%") Rating
                 %th(width="15%") Genre
                 %th(width="15%") Remove
@@ -22,8 +22,8 @@
                     = hidden_field_tag "queue_array[][id]", queued_item.id
                   %td
                     = link_to queued_item.video_title, queued_item.video
-                  %td
-                    = button_to "Play", nil, class: "btn btn-default"
+                  / %td
+                  / = button_to "Play", nil, class: "btn btn-default"
                   %td
                     = select_tag "queue_array[][rating]", options_for_select(star_rating, queued_item.rating), { include_blank: true, class: 'form-control' }
                   %td
