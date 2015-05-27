@@ -4,19 +4,19 @@ Tealeaf Academy Course - Build Robust And Production Quality Applications
 
 This application is a Netflix clone that includes the following features:
 
-Search
-Sending emails
-Background jobs
-Resque and Sidekiq
-Amazon S3
-Uploading files for admins
-Collect credit card payments with Stripe
-Payment forms
-Recurring billing
-Restrict access when future payments fail
-Follow other users
-Add videos to queue
-Write video reviews
+* Search
+* Sending emails
+* Background jobs
+* Resque and Sidekiq
+* Amazon S3
+* Uploading files for admins
+* Collect credit card payments with Stripe
+* Payment forms
+* Recurring billing
+* Restrict access when future payments fail
+* Follow other users
+* Add videos to queue
+* Write video reviews
 
 My production version of the application can be found at: http://knoxjeffrey-myflix.herokuapp.com/
 
